@@ -15,7 +15,7 @@ export default function App() {
   // Navigation active tab: 'sponsors' | 'pay-equity' | 'roadmaps' | 'community'
   const [activeTab, setActiveTab] = useState('sponsors');
 
-  // Theme: Warm Porcelain (#FEFEFE / #FDFBF7) vs Dark Slate (#0F172A)
+  // Theme toggle: white #FEFEFE vs Dark Slate
   const [darkMode, setDarkMode] = useState(false);
 
   // Modals state
@@ -141,7 +141,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FEFEFE] dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-200 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#FEFEFE] dark:bg-slate-950 text-[#000000] dark:text-slate-100 transition-colors duration-200 flex flex-col font-sans">
       {/* Navigation Header */}
       <Navbar
         activeTab={activeTab}
@@ -154,7 +154,7 @@ export default function App() {
         pendingRequestsCount={requestsSent.length}
       />
 
-      {/* Corvana-Style Landing Hero for GraceNet */}
+      {/* Corvana AI Style Landing Hero */}
       <Hero
         onExploreSponsors={() => scrollToContent('sponsors')}
         onExplorePayEquity={() => scrollToContent('pay-equity')}
@@ -164,25 +164,25 @@ export default function App() {
       {/* Interactive Platform Workspace Section */}
       <section 
         ref={contentSectionRef} 
-        className="flex-1 max-w-[1514px] w-full mx-auto px-4 sm:px-8 py-8 sm:py-12 border-t border-slate-100 dark:border-slate-800"
+        className="flex-1 max-w-[1514px] w-full mx-auto px-4 sm:px-[52px] py-10 sm:py-16 border-t border-black/[0.06] dark:border-white/[0.08]"
       >
         {/* Module Sub-Header Tabs */}
-        <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-100 dark:border-slate-800">
+        <div className="flex items-center justify-between mb-8 pb-4 border-b border-black/[0.06] dark:border-white/[0.08]">
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-deepViolet dark:text-purple-400">
-              GraceNet Platform Modules
+            <span className="text-[12px] font-[600] uppercase tracking-wider text-[#7A5CF0]">
+              Interactive Platform Workspace
             </span>
-            <h2 className="text-2xl font-bold tracking-tight text-slate-950 dark:text-white mt-1">
-              {activeTab === 'sponsors' && 'Executive Sponsorship & Mentorship Matcher'}
-              {activeTab === 'pay-equity' && 'Audited Wage Transparency & Parity Engine'}
-              {activeTab === 'roadmaps' && 'Grace Hopper Technical Skill Roadmaps'}
-              {activeTab === 'community' && 'Safe Space Community Forum'}
+            <h2 className="text-[26px] font-[500] tracking-[-0.03em] text-[#000000] dark:text-white mt-1">
+              {activeTab === 'sponsors' && 'Sponsorship & Mentorship Matcher'}
+              {activeTab === 'pay-equity' && 'Wage Transparency & Pay Equity Parity Tool'}
+              {activeTab === 'roadmaps' && 'Grace Hopper Career & Technical Roadmaps'}
+              {activeTab === 'community' && 'Community & Safe Space Forum'}
             </h2>
           </div>
 
-          <div className="hidden sm:flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-2xl">
+          <div className="hidden sm:flex items-center gap-1.5 bg-[#EAEAEA] dark:bg-slate-800 p-1.5 rounded-2xl">
             {[
-              { id: 'sponsors', label: 'Sponsors' },
+              { id: 'sponsors', label: 'Sponsorship' },
               { id: 'pay-equity', label: 'Pay Equity' },
               { id: 'roadmaps', label: 'Roadmaps' },
               { id: 'community', label: 'Community' },
@@ -190,10 +190,10 @@ export default function App() {
               <button
                 key={t.id}
                 onClick={() => setActiveTab(t.id)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+                className={`px-4 py-2 rounded-xl text-[13px] font-[500] transition-all cursor-pointer border-none ${
                   activeTab === t.id
-                    ? 'bg-white dark:bg-slate-900 text-deepViolet dark:text-white shadow-sm'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    ? 'bg-[#FFFFFF] dark:bg-slate-900 text-[#000000] dark:text-white shadow-sm font-[600]'
+                    : 'bg-transparent text-[#5E6064] hover:text-[#000000] dark:text-slate-400 dark:hover:text-white'
                 }`}
               >
                 {t.label}

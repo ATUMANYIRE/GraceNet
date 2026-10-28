@@ -4,9 +4,11 @@ import Logo from './Logo';
 export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin }) {
   const videoRef = useRef(null);
   const heartbeatSvgRef = useRef(null);
-  const panelStripRef = useRef(null);
 
-  // 1. Build pixel ECG heartbeat trace
+  // Build exact Corvana pixel ECG heartbeat trace
+  // Pixels: 6.2u squares on a 9.6u grid, coral #F8533F with lighter #FB7565 baseline dots.
+  // Baseline sits 9u below the button center.
+  // Four heartbeats at -462, -225, +231 and +468u from centre (757u).
   useEffect(() => {
     const svg = heartbeatSvgRef.current;
     if (!svg) return;
@@ -15,7 +17,7 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
     const gx = 9.6;
     const gy = 9.6;
     const s = 6.2;
-    const y0 = 50; // baseline y in the 100u tall container
+    const y0 = 50; // baseline y in the 100u container
 
     const center = W / 2; // 757u
     const hbCenters = [
@@ -32,7 +34,7 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
       const x = col * gx;
       const t = Math.min(1, Math.max(0, x / W));
 
-      // Edge thinning & fading
+      // Ends: baseline thins to sparse dots and fades toward both ends
       const distFromEdge = Math.min(x, W - x);
       if (distFromEdge < 120 && col % 2 !== 0) continue;
       if (distFromEdge < 60 && col % 3 !== 0) continue;
@@ -50,42 +52,42 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
       }
 
       if (matchedHb === null) {
-        // Baseline dot in soft amethyst / violet tint
-        rects.push(`<rect x="${x.toFixed(1)}" y="${(y0 - s/2).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #C4B5FD;" />`);
+        // Baseline dot: lighter #FB7565
+        rects.push(`<rect x="${x.toFixed(1)}" y="${(y0 - s/2).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #FB7565;" />`);
       } else {
-        // Cardiac waveform staircase in brand deep violet & rose
+        // Vertical pixel staircases: coral #F8533F
         switch (offsetInHb) {
-          case -3:
-            rects.push(`<rect x="${x.toFixed(1)}" y="${(y0 - 8).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #8B5CF6;" />`);
+          case -3: // P bump start
+            rects.push(`<rect x="${x.toFixed(1)}" y="${(y0 - 8).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #F8533F;" />`);
             break;
-          case -2:
-            rects.push(`<rect x="${x.toFixed(1)}" y="${(y0 - 13).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #8B5CF6;" />`);
+          case -2: // P bump peak
+            rects.push(`<rect x="${x.toFixed(1)}" y="${(y0 - 13).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #F8533F;" />`);
             break;
-          case -1:
-            rects.push(`<rect x="${x.toFixed(1)}" y="${(y0 + 10).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #6D28D9;" />`);
+          case -1: // Q dip
+            rects.push(`<rect x="${x.toFixed(1)}" y="${(y0 + 10).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #F8533F;" />`);
             break;
-          case 0: // Tall R spike (≈60u up staircase)
+          case 0: // Tall R spike (≈60u up vertical staircase)
             for (let y = y0 + 4; y >= y0 - 58; y -= gy) {
-              rects.push(`<rect x="${x.toFixed(1)}" y="${(y - s/2).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #F43F5E;" />`);
+              rects.push(`<rect x="${x.toFixed(1)}" y="${(y - s/2).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #F8533F;" />`);
             }
             break;
-          case 1: // S drop (≈47u down staircase)
+          case 1: // S drop (≈47u down vertical staircase)
             for (let y = y0 - 36; y <= y0 + 46; y -= gy) {
-              rects.push(`<rect x="${x.toFixed(1)}" y="${(y - s/2).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #6D28D9;" />`);
+              rects.push(`<rect x="${x.toFixed(1)}" y="${(y - s/2).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #F8533F;" />`);
             }
             break;
           case 2: // S recovery
-            rects.push(`<rect x="${x.toFixed(1)}" y="${(y0 + 20).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #7C3AED;" />`);
-            rects.push(`<rect x="${x.toFixed(1)}" y="${(y0 + 6).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #7C3AED;" />`);
+            rects.push(`<rect x="${x.toFixed(1)}" y="${(y0 + 20).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #F8533F;" />`);
+            rects.push(`<rect x="${x.toFixed(1)}" y="${(y0 + 6).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #F8533F;" />`);
             break;
-          case 3:
-            rects.push(`<rect x="${x.toFixed(1)}" y="${(y0 - 10).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #8B5CF6;" />`);
+          case 3: // T bump start
+            rects.push(`<rect x="${x.toFixed(1)}" y="${(y0 - 10).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #F8533F;" />`);
             break;
-          case 4:
-            rects.push(`<rect x="${x.toFixed(1)}" y="${(y0 - 16).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #8B5CF6;" />`);
+          case 4: // T bump peak
+            rects.push(`<rect x="${x.toFixed(1)}" y="${(y0 - 16).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #F8533F;" />`);
             break;
           default:
-            rects.push(`<rect x="${x.toFixed(1)}" y="${(y0 - s/2).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #C4B5FD;" />`);
+            rects.push(`<rect x="${x.toFixed(1)}" y="${(y0 - s/2).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #FB7565;" />`);
             break;
         }
       }
@@ -94,7 +96,7 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
     svg.innerHTML = rects.join('');
   }, []);
 
-  // 2. Video fade-in on play
+  // Video fade-in on playing
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -112,45 +114,44 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
   }, []);
 
   return (
-    <section className="relative w-full overflow-hidden flex flex-col items-center">
-      {/* 1. TOP ANNOUNCEMENT BAR */}
-      <div className="w-full h-[38px] bg-gradient-to-r from-deepViolet via-purple-700 to-rose-600 flex items-center justify-center text-white text-xs sm:text-[13.5px] font-medium tracking-tight px-4 z-20 shrink-0">
-        <div className="inline-flex items-center gap-2">
-          <Logo size={16} />
-          <span>Catalyst California Conference (C3) Hackathon • Advancing Women in Tech</span>
+    <section className="relative w-full overflow-hidden flex flex-col items-center bg-[#FEFEFE] dark:bg-slate-950 font-sans">
+      {/* 1. ANNOUNCEMENT BAR: 38px, coral #FA6E5C */}
+      <div className="w-full h-[38px] bg-[#FA6E5C] flex items-center justify-center text-white text-[13.5px] font-medium tracking-[-0.01em] px-4 z-20 shrink-0">
+        <div className="inline-flex items-center gap-1.5">
+          <span>30% off for all new clinics & engineering cohorts.</span>
           <button 
             onClick={onOpenJoin}
-            className="underline underline-offset-4 font-bold text-[12px] tracking-wide hover:opacity-90 transition-opacity ml-1 cursor-pointer"
+            className="underline underline-offset-[3px] font-semibold text-[12.5px] tracking-[0.02em] hover:opacity-90 cursor-pointer ml-1 text-white bg-transparent border-none"
           >
-            CLAIM YOUR SPONSOR NOW
+            CLAIM THE DEAL NOW
           </button>
         </div>
       </div>
 
       {/* 2. HEADLINE & SUBLINE SECTION */}
-      <div className="w-full max-w-[1514px] mx-auto px-4 sm:px-6 pt-8 sm:pt-12 text-center flex flex-col items-center z-10">
-        {/* Headline */}
+      <div className="w-full max-w-[1514px] mx-auto px-4 sm:px-6 pt-9 sm:pt-12 text-center flex flex-col items-center z-10">
+        {/* Headline: about 72u, 500 weight with tight tracking (-0.045em) */}
         <div className="overflow-hidden">
-          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[72px] font-medium tracking-[-0.045em] text-slate-900 dark:text-white leading-[1.08]">
-            The Career Copilot Built For
+          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[72px] font-[500] tracking-[-0.045em] text-[#000000] dark:text-white leading-[1.08]">
+            The AI Copilot Made For Calmer
           </h1>
         </div>
         <div className="overflow-hidden">
-          <div className="text-3xl sm:text-5xl md:text-6xl lg:text-[72px] font-medium tracking-[-0.045em] bg-gradient-to-r from-deepViolet via-purple-600 to-rose-500 bg-clip-text text-transparent leading-[1.08]">
-            Women In Technology
+          <div className="text-3xl sm:text-5xl md:text-6xl lg:text-[72px] font-[500] tracking-[-0.045em] text-[#000000] dark:text-white leading-[1.08]">
+            Clinical & Career Coordination
           </div>
         </div>
 
-        {/* Subline */}
-        <div className="mt-4 sm:mt-5 max-w-3xl">
-          <p className="text-sm sm:text-lg md:text-[22.4px] leading-relaxed md:leading-[31px] text-slate-600 dark:text-slate-300 font-normal tracking-[-0.015em]">
-            From salary parity audits to executive sponsorship doors, take control of your career trajectory while cultivating allies who advocate for you in closed-door calibration rooms.
+        {/* Subline: about 22.4u / 31u line height, two lines, color #5E6064 */}
+        <div className="mt-4 sm:mt-5 max-w-[880px]">
+          <p className="text-sm sm:text-lg md:text-[22.4px] leading-relaxed md:leading-[31px] text-[#5E6064] dark:text-slate-300 font-[400] tracking-[-0.015em]">
+            From first check-in to aftercare reminders, take over routine tasks and paperwork while giving every patient and technologist a warm welcome.
           </p>
         </div>
 
         {/* 3. HEARTBEAT FIELD & MAIN BUTTON */}
         <div className="relative w-full h-[90px] flex items-center justify-center my-4 sm:my-6">
-          {/* Edge-to-edge pixel ECG heartbeat line running behind button */}
+          {/* Edge-to-edge pixel ECG heartbeat line: coral #F8533F with lighter #FB7565 dots */}
           <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
             <svg 
               ref={heartbeatSvgRef}
@@ -160,34 +161,31 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
             />
           </div>
 
-          {/* Frosted Glass Ring around Black Pill Button */}
-          <div className="relative z-10 w-[240px] sm:w-[260px] h-[72px] rounded-full bg-white/75 dark:bg-slate-900/80 backdrop-blur-md border border-white/90 dark:border-slate-700 shadow-xl flex items-center justify-center p-1.5 transition-transform hover:scale-[1.02]">
+          {/* 233 x 71.5u Glass Ring around Black Pill Button: 22u text */}
+          <div className="relative z-10 w-[233px] sm:w-[245px] h-[71.5px] rounded-full bg-white/75 dark:bg-slate-900/80 backdrop-blur-[14px] border border-white/90 dark:border-slate-700 shadow-[0_10px_32px_rgba(0,0,0,0.06),0_2px_8px_rgba(0,0,0,0.03)] flex items-center justify-center p-1.5 transition-transform hover:scale-[1.01] group cursor-pointer">
             <button
               onClick={onExploreSponsors}
-              className="w-full h-full rounded-full bg-slate-950 dark:bg-deepViolet hover:bg-slate-900 dark:hover:bg-purple-700 text-white font-medium text-base sm:text-lg tracking-[-0.02em] flex items-center justify-center gap-2 shadow-lg transition-all hover:-translate-y-0.5 active:translate-y-0"
+              className="w-full h-full rounded-full bg-[#000000] hover:bg-slate-900 text-white font-[500] text-lg sm:text-[22px] tracking-[-0.02em] flex items-center justify-center gap-2 shadow-[0_4px_14px_rgba(0,0,0,0.12)] transition-all group-hover:-translate-y-[1px] group-hover:shadow-[0_10px_24px_rgba(0,0,0,0.22)] active:translate-y-0"
             >
-              <Logo size={20} />
-              <span>Match With A Sponsor</span>
+              <span>Start Your Trial</span>
             </button>
           </div>
         </div>
 
-        {/* 4. THREE TALL ROUNDED PANELS (1313.5 x 429.5u) */}
-        <div className="w-full max-w-[1314px] mx-auto mb-8 sm:mb-12">
-          <div 
-            ref={panelStripRef}
-            className="w-full min-h-[420px] sm:h-[430px] rounded-3xl grid grid-cols-1 md:grid-cols-12 gap-3 p-1"
-          >
-            {/* PANEL 1: EXECUTIVE SPONSOR PANEL (436.5u / ~4 cols) */}
-            <div className="md:col-span-4 h-full min-h-[380px] rounded-2xl overflow-hidden relative shadow-sm border border-slate-200/60 dark:border-slate-800 bg-gradient-to-br from-[#a4e6ce] via-[#b6e5db] to-[#bde8f5]">
+        {/* 4. PANEL STRIP: 1313.5 x 429.5u, radius 16, three columns 436.5 / 425.5 / 436.5u with 7.5u gaps */}
+        <div className="w-full max-w-[1313.5px] mx-auto mb-8 sm:mb-12">
+          <div className="w-full min-h-[420px] sm:h-[429.5px] rounded-[16px] grid grid-cols-1 md:grid-cols-12 gap-[7.5px] p-0.5">
+            
+            {/* PANEL 1: PATIENT PANEL (436.5u / 4 cols) */}
+            <div className="md:col-span-4 h-full min-h-[380px] rounded-[16px] overflow-hidden relative shadow-sm bg-gradient-to-br from-[#a4e6ce] to-[#bde8f5]">
               {/* Still image fallback */}
               <img
                 src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/c43c6772-ae79-45f3-a2ff-90a401f03b48.webp"
-                alt="Executive Sponsor Leader"
+                alt="Laughing patient with silver wavy hair and coral knit sweater"
                 className="absolute inset-0 w-full h-full object-cover"
               />
 
-              {/* Looping video at 107.78% width, -3.89% left */}
+              {/* Looping video: 107.78% width, left -3.89%, full height */}
               <video
                 ref={videoRef}
                 src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/39c69b84-0ac5-485f-ae42-3bd7d521989e.mp4"
@@ -198,164 +196,160 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
                 playsInline
               />
 
-              {/* Verified Sponsor Pill Header */}
-              <div className="absolute top-4 left-4 z-10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-white/90 dark:border-slate-700 rounded-full px-3 py-1.5 flex items-center gap-2 shadow-sm text-xs font-semibold text-slate-800 dark:text-white">
+              {/* Verified Pill Header with Logo */}
+              <div className="absolute top-[18px] left-[18px] z-10 bg-white/75 dark:bg-slate-900/80 backdrop-blur-[12px] border border-white/90 dark:border-slate-700 rounded-full px-3 py-1.5 flex items-center gap-1.5 shadow-[0_4px_12px_rgba(0,0,0,0.05)] text-[11.5px] font-[500] text-[#3A3C40] dark:text-white">
                 <Logo size={14} />
-                <span>Executive Sponsor • Google Cloud</span>
-              </div>
-
-              {/* Bottom Leader Impact Overlay */}
-              <div className="absolute bottom-4 left-4 right-4 z-10 bg-white/85 dark:bg-slate-900/85 backdrop-blur-md border border-white/90 dark:border-slate-700 rounded-2xl p-3 flex items-center justify-between shadow-md">
-                <div>
-                  <div className="text-xs font-bold text-slate-900 dark:text-white">Dr. Maya Lin-Vanderbilt</div>
-                  <div className="text-[11px] text-slate-500">VP of Engineering & Distributed Systems</div>
-                </div>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
-                  14 Promoted
-                </span>
+                <span>Front Desk Copilot</span>
               </div>
             </div>
 
-            {/* PANEL 2: WAGE TRANSPARENCY METRIC PANEL (425.5u / ~4 cols) */}
-            <div className="md:col-span-4 h-full min-h-[380px] rounded-2xl bg-[#EAEAEA] dark:bg-slate-800/80 p-5 flex items-center justify-center border border-slate-200/60 dark:border-slate-700/60 shadow-sm">
-              <div className="w-full max-w-[340px] h-[320px] bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm flex flex-col justify-between border border-slate-100 dark:border-slate-800">
-                {/* Header with › button */}
+            {/* PANEL 2: METRIC PANEL (425.5u / 4 cols): #EAEAEA with white 339x316u card */}
+            <div className="md:col-span-4 h-full min-h-[380px] rounded-[16px] bg-[#EAEAEA] dark:bg-slate-800 p-5 flex items-center justify-center shadow-sm">
+              <div className="w-full max-w-[339px] h-[316px] bg-[#FFFFFF] dark:bg-slate-900 rounded-[16px] p-6 shadow-[0_8px_24px_rgba(0,0,0,0.04)] flex flex-col justify-between">
+                {/* Header: Check-ins Completed + › button with grey disc on hover */}
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                    Audited Pay Parity
+                  <span className="text-[14px] font-[500] text-[#3A3C40] dark:text-slate-300 tracking-[-0.01em]">
+                    Check-ins Completed
                   </span>
                   <button
                     onClick={onExplorePayEquity}
-                    className="w-7 h-7 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                    aria-label="Explore pay equity details"
+                    className="w-[28px] h-[28px] rounded-full flex items-center justify-center text-[#5E6064] hover:text-[#000000] hover:bg-[#E2E2E2] dark:hover:bg-slate-800 transition-colors cursor-pointer border-none bg-transparent"
+                    aria-label="View check-in metrics"
                   >
-                    ›
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
                   </button>
                 </div>
 
-                {/* Big Stat Value */}
-                <div className="mt-1">
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-5xl font-semibold tracking-tight text-slate-900 dark:text-white">$240</span>
-                    <span className="text-2xl font-medium text-slate-700 dark:text-slate-300">K</span>
+                {/* Big Stat Value: 18.7 (50u, 600) with small K */}
+                <div className="mt-2">
+                  <div className="flex items-baseline gap-0.5">
+                    <span className="text-[50px] font-[600] tracking-[-0.035em] text-[#000000] dark:text-white leading-none">18.7</span>
+                    <span className="text-[26px] font-[500] text-[#000000] dark:text-white">K</span>
                   </div>
-                  <div className="flex items-center gap-2 mt-2">
-                    <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300">
-                      +18.4%
+
+                  {/* Lavender Chip: +21.3% (#F1EDFE -> #E8E2FD, text #6A4CEB) + vs Prior Week */}
+                  <div className="flex items-center gap-2 mt-2.5">
+                    <span className="text-[12px] font-[600] px-2 py-0.5 rounded-full bg-gradient-to-r from-[#F1EDFE] to-[#E8E2FD] text-[#6A4CEB] tracking-[-0.01em]">
+                      +21.3%
                     </span>
-                    <span className="text-xs text-slate-500">vs Market Benchmark</span>
+                    <span className="text-[12.5px] font-[400] text-[#5E6064]">vs Prior Week</span>
                   </div>
                 </div>
 
-                {/* Dual Trajectory SVG Chart */}
-                <div className="w-full h-28 relative mt-2">
+                {/* SVG Chart: Violet line #7A5CF0 and Coral line #F8533F */}
+                <div className="w-full h-[118px] relative mt-2">
                   <svg className="w-full h-full overflow-visible" viewBox="0 0 290 90" fill="none">
                     {/* Bottom ticks */}
-                    <line x1="20" y1="86" x2="20" y2="90" stroke="#CBD5E1" strokeWidth="1" />
-                    <line x1="65" y1="86" x2="65" y2="90" stroke="#CBD5E1" strokeWidth="1" />
-                    <line x1="110" y1="86" x2="110" y2="90" stroke="#CBD5E1" strokeWidth="1" />
-                    <line x1="155" y1="86" x2="155" y2="90" stroke="#CBD5E1" strokeWidth="1" />
-                    <line x1="200" y1="86" x2="200" y2="90" stroke="#CBD5E1" strokeWidth="1" />
-                    <line x1="245" y1="86" x2="245" y2="90" stroke="#CBD5E1" strokeWidth="1" />
-                    <line x1="280" y1="86" x2="280" y2="90" stroke="#CBD5E1" strokeWidth="1" />
+                    <line x1="20" y1="86" x2="20" y2="90" stroke="#D5D5D8" strokeWidth="1" />
+                    <line x1="65" y1="86" x2="65" y2="90" stroke="#D5D5D8" strokeWidth="1" />
+                    <line x1="110" y1="86" x2="110" y2="90" stroke="#D5D5D8" strokeWidth="1" />
+                    <line x1="155" y1="86" x2="155" y2="90" stroke="#D5D5D8" strokeWidth="1" />
+                    <line x1="200" y1="86" x2="200" y2="90" stroke="#D5D5D8" strokeWidth="1" />
+                    <line x1="245" y1="86" x2="245" y2="90" stroke="#D5D5D8" strokeWidth="1" />
+                    <line x1="280" y1="86" x2="280" y2="90" stroke="#D5D5D8" strokeWidth="1" />
 
-                    {/* Vertical drop line */}
-                    <line x1="272" y1="18" x2="272" y2="86" stroke="#94A3B8" strokeWidth="1.2" strokeDasharray="2.5 2.5" />
+                    {/* Grey vertical drop line */}
+                    <line x1="272" y1="18" x2="272" y2="86" stroke="#D0D0D2" strokeWidth="1.2" strokeDasharray="2.5 2.5" />
 
-                    {/* Violet trajectory (Female Tech Median) */}
+                    {/* Violet trajectory #7A5CF0 */}
                     <path
                       d="M 15 68 C 65 64, 110 52, 160 46 C 205 40, 235 32, 265 24"
-                      stroke="#6D28D9"
+                      stroke="#7A5CF0"
                       strokeWidth="2.5"
                       strokeLinecap="round"
                     />
 
-                    {/* Rose trajectory (Market Parity Target) */}
+                    {/* Coral trajectory #F8533F */}
                     <path
                       d="M 15 54 C 60 48, 105 38, 155 30 C 195 24, 230 18, 272 18"
-                      stroke="#F43F5E"
+                      stroke="#F8533F"
                       strokeWidth="2.5"
                       strokeLinecap="round"
                     />
 
                     {/* Violet ringed dot */}
-                    <circle cx="265" cy="24" r="4.5" stroke="#6D28D9" strokeWidth="2" fill="#FFFFFF" />
-                    <circle cx="265" cy="24" r="1.5" fill="#6D28D9" />
+                    <circle cx="265" cy="24" r="4.5" stroke="#7A5CF0" strokeWidth="2" fill="#FFFFFF" />
+                    <circle cx="265" cy="24" r="1.5" fill="#7A5CF0" />
 
-                    {/* Coral/Rose filled dot with soft ring */}
-                    <circle cx="272" cy="18" r="7" fill="rgba(244, 63, 94, 0.25)" />
-                    <circle cx="272" cy="18" r="4" fill="#F43F5E" />
+                    {/* Coral filled dot with soft ring */}
+                    <circle cx="272" cy="18" r="7" fill="rgba(248, 83, 63, 0.25)" />
+                    <circle cx="272" cy="18" r="4" fill="#F8533F" />
                   </svg>
                 </div>
               </div>
             </div>
 
-            {/* PANEL 3: GRACE HOPPER TRUST & PROMOTION PANEL (436.5u / ~4 cols) */}
+            {/* PANEL 3: PEONY PANEL (436.5u / 4 cols): Macro ruffled coral peony petals */}
             <div 
-              className="md:col-span-4 h-full min-h-[380px] rounded-2xl p-5 flex flex-col items-center justify-center gap-3 relative overflow-hidden shadow-sm border border-slate-200/60 dark:border-slate-800 bg-cover bg-center"
+              className="md:col-span-4 h-full min-h-[380px] rounded-[16px] p-5 flex flex-col items-center justify-center gap-3 relative overflow-hidden shadow-sm bg-cover bg-center"
               style={{ backgroundImage: `url('https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/b6730025-6d74-465e-8978-f9909c47095a.webp')` }}
             >
-              {/* Frosted Trust Card */}
-              <div className="w-full max-w-[290px] h-[235px] bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border border-white/90 dark:border-slate-700 rounded-2xl p-4 flex flex-col justify-between shadow-lg">
+              {/* Frosted Trust Card: 292 x 241u, 98% (44.5u, 400), violet bar-wave meter, "Wonderful" */}
+              <div className="w-full max-w-[292px] h-[241px] bg-white/76 dark:bg-slate-900/80 backdrop-blur-[18px] border border-white/88 dark:border-slate-700 rounded-[16px] p-5 flex flex-col justify-between shadow-[0_16px_36px_rgba(0,0,0,0.08)]">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-medium text-slate-700 dark:text-slate-300">
-                    Promotion Calibration Rate
+                  <span className="text-[13px] font-[500] text-[#3A3C40] dark:text-slate-300">
+                    Patient Trust Rating
                   </span>
                   <Logo size={18} />
                 </div>
 
                 <div>
-                  <div className="text-4xl font-normal text-slate-950 dark:text-white tracking-tight">
+                  <div className="text-[44.5px] font-[400] text-[#000000] dark:text-white tracking-[-0.03em] leading-none">
                     98%
                   </div>
                 </div>
 
-                {/* Symmetric Bar-Wave Meter */}
-                <div className="w-full h-8 flex items-center justify-between gap-1 py-1" aria-hidden="true">
-                  <div className="flex-1 bg-deepViolet rounded-full h-[22%]" />
-                  <div className="flex-1 bg-deepViolet rounded-full h-[35%]" />
-                  <div className="flex-1 bg-deepViolet rounded-full h-[52%]" />
-                  <div className="flex-1 bg-deepViolet rounded-full h-[70%]" />
-                  <div className="flex-1 bg-deepViolet rounded-full h-[88%]" />
-                  <div className="flex-1 bg-deepViolet rounded-full h-[100%]" />
-                  <div className="flex-1 bg-deepViolet rounded-full h-[88%]" />
-                  <div className="flex-1 bg-deepViolet rounded-full h-[70%]" />
-                  <div className="flex-1 bg-deepViolet rounded-full h-[52%]" />
-                  <div className="flex-1 bg-deepViolet rounded-full h-[35%]" />
-                  <div className="flex-1 bg-deepViolet rounded-full h-[22%]" />
+                {/* Symmetric violet bar-wave meter */}
+                <div className="w-full h-[36px] flex items-center justify-between gap-1 py-1" aria-hidden="true">
+                  <div className="flex-1 bg-[#7A5CF0] rounded-full h-[22%]" />
+                  <div className="flex-1 bg-[#7A5CF0] rounded-full h-[35%]" />
+                  <div className="flex-1 bg-[#7A5CF0] rounded-full h-[52%]" />
+                  <div className="flex-1 bg-[#7A5CF0] rounded-full h-[70%]" />
+                  <div className="flex-1 bg-[#7A5CF0] rounded-full h-[88%]" />
+                  <div className="flex-1 bg-[#7A5CF0] rounded-full h-[100%]" />
+                  <div className="flex-1 bg-[#7A5CF0] rounded-full h-[88%]" />
+                  <div className="flex-1 bg-[#7A5CF0] rounded-full h-[70%]" />
+                  <div className="flex-1 bg-[#7A5CF0] rounded-full h-[52%]" />
+                  <div className="flex-1 bg-[#7A5CF0] rounded-full h-[35%]" />
+                  <div className="flex-1 bg-[#7A5CF0] rounded-full h-[22%]" />
                 </div>
 
-                <div className="flex items-center justify-between text-xs">
-                  <span className="font-semibold text-deepViolet dark:text-purple-300">Calibrated to Staff+</span>
-                  <span className="text-amber-500">★★★★★</span>
+                <div className="flex items-center justify-between text-[13px]">
+                  <span className="font-[600] text-[#7A5CF0]">Wonderful</span>
+                  <div className="flex items-center gap-0.5 text-[#F59E0B] text-[11px]">
+                    ★★★★★
+                  </div>
                 </div>
               </div>
 
-              {/* White Avatars Card */}
-              <div className="w-full max-w-[290px] h-[64px] bg-white dark:bg-slate-900 rounded-2xl p-3 flex items-center justify-between shadow-md border border-slate-100 dark:border-slate-800">
-                <div className="flex items-center -space-x-2">
+              {/* White Avatars Card: 66.5u tall, 3 overlapping avatars, 62K+ Clinicians Onboarded */}
+              <div className="w-full max-w-[292px] h-[66.5px] bg-[#FFFFFF] dark:bg-slate-900 rounded-[16px] px-4 flex items-center justify-between shadow-[0_10px_24px_rgba(0,0,0,0.06)] border border-slate-100 dark:border-slate-800">
+                <div className="flex items-center -space-x-2.5">
                   <img
-                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&auto=format&fit=crop&q=80"
-                    alt="Promoted Engineer"
-                    className="w-8 h-8 rounded-xl border-2 border-white dark:border-slate-900 object-cover"
+                    src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=80&auto=format&fit=crop&q=80"
+                    alt="Clinician"
+                    className="w-[34px] h-[34px] rounded-[9px] border-2 border-white dark:border-slate-900 object-cover shadow-[0_2px_6px_rgba(0,0,0,0.08)]"
                   />
                   <img
-                    src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=80&auto=format&fit=crop&q=80"
-                    alt="Promoted Staff Architect"
-                    className="w-8 h-8 rounded-xl border-2 border-white dark:border-slate-900 object-cover"
+                    src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=80&auto=format&fit=crop&q=80"
+                    alt="Clinician"
+                    className="w-[34px] h-[34px] rounded-[9px] border-2 border-white dark:border-slate-900 object-cover shadow-[0_2px_6px_rgba(0,0,0,0.08)]"
                   />
                   <img
-                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&auto=format&fit=crop&q=80"
-                    alt="Promoted Tech Lead"
-                    className="w-8 h-8 rounded-xl border-2 border-white dark:border-slate-900 object-cover"
+                    src="https://images.unsplash.com/photo-1594824813622-c3f3747b0e51?w=80&auto=format&fit=crop&q=80"
+                    alt="Clinician"
+                    className="w-[34px] h-[34px] rounded-[9px] border-2 border-white dark:border-slate-900 object-cover shadow-[0_2px_6px_rgba(0,0,0,0.08)]"
                   />
                 </div>
 
-                <div className="text-right">
-                  <div className="text-base font-bold text-slate-900 dark:text-white leading-none">142+</div>
-                  <div className="text-[11px] text-slate-500">Women Promoted</div>
+                <div className="text-right flex flex-col items-end">
+                  <div className="text-[16.5px] font-[600] text-[#000000] dark:text-white tracking-[-0.02em] leading-tight">62K+</div>
+                  <div className="text-[11px] font-[400] text-[#5E6064]">Clinicians Onboarded</div>
                 </div>
               </div>
+
             </div>
 
           </div>

@@ -1,4 +1,4 @@
-import React, { useState, useId } from 'react';
+import React, { useState } from 'react';
 import { 
   DollarSign, 
   TrendingUp, 
@@ -6,12 +6,9 @@ import {
   CheckCircle2, 
   Copy, 
   Check, 
-  Sparkles, 
-  FileText, 
   Scale, 
   ShieldCheck, 
   PlusCircle, 
-  ArrowUpRight,
   Info,
   Calendar,
   Lock,
@@ -27,7 +24,6 @@ import {
 } from '../data/salaryBenchmarks';
 
 export default function PayEquity({ showToast, userProfile }) {
-  // Input states
   const [selectedDiscipline, setSelectedDiscipline] = useState('swe');
   const [selectedLevel, setSelectedLevel] = useState('senior');
   const [selectedLocation, setSelectedLocation] = useState('bayarea');
@@ -37,7 +33,6 @@ export default function PayEquity({ showToast, userProfile }) {
   const [communitySubmissions, setCommunitySubmissions] = useState(COMMUNITY_SALARY_SUBMISSIONS);
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
 
-  // Community submission form
   const [submissionForm, setSubmissionForm] = useState({
     role: 'Senior Software Engineer',
     companyTier: 'Tier 1 Big Tech',
@@ -50,19 +45,14 @@ export default function PayEquity({ showToast, userProfile }) {
     tips: ''
   });
 
-  // Calculate live benchmark
   const benchmark = calculateBenchmark(selectedDiscipline, selectedLevel, selectedLocation);
 
-  // Pay gap metrics
   const salaryDiff = userSalary - benchmark.auditedMarketMedian;
   const isUndervalued = salaryDiff < 0;
   const gapAmount = Math.abs(salaryDiff);
   const gapPercentage = Math.abs(Math.round((salaryDiff / benchmark.auditedMarketMedian) * 100));
 
-  // 10-year compounding lost earnings calculation (assuming 5% annual market reinvestment)
   const tenYearCompoundedLoss = Math.round(gapAmount * 12.58);
-
-  // Max value for comparative bars (scale to 1.15x the 90th percentile)
   const maxBarValue = Math.max(benchmark.percentile90 * 1.1, userSalary * 1.1);
 
   const getWidthPct = (val) => {
@@ -96,7 +86,6 @@ export default function PayEquity({ showToast, userProfile }) {
     setIsSubmitModalOpen(false);
   };
 
-  // Find active template
   const activeTemplate = NEGOTIATION_TEMPLATES.find(t => t.id === activeTemplateTab) || NEGOTIATION_TEMPLATES[0];
   const renderedScript = activeTemplate.generateScript({
     roleTitle: `${ROLE_LEVELS.find(l => l.id === selectedLevel)?.label.split(' ')[0]} ${DISCIPLINES.find(d => d.id === selectedDiscipline)?.label.split(' ')[0]}`,
@@ -107,40 +96,27 @@ export default function PayEquity({ showToast, userProfile }) {
   });
 
   return (
-    <div className="space-y-8 animate-fadeIn">
-      {/* Tool Header */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-900 via-teal-950 to-slate-900 text-white p-6 sm:p-10 shadow-xl border border-emerald-800/40">
-        <div className="relative z-10 max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 backdrop-blur-md border border-emerald-400/30 text-xs font-semibold text-emerald-200">
-            <Scale className="w-3.5 h-3.5 text-emerald-300" />
-            <span>Audited Tech Equity Analytics & California Equal Pay Standards</span>
-          </div>
-
-          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">
-            Wage Transparency & <br />
-            <span className="bg-gradient-to-r from-emerald-300 via-teal-200 to-amber-200 bg-clip-text text-transparent">
-              Pay Equity Parity Calculator
-            </span>
-          </h1>
-
-          <p className="text-sm sm:text-base text-emerald-100/90 leading-relaxed max-w-2xl">
-            Compare your compensation against validated market medians, uncover systemic undervaluation, and generate high-leverage negotiation scripts with statutory labor code references.
+    <div className="space-y-8 font-sans">
+      {/* Top Banner */}
+      <div className="rounded-[16px] bg-[#EAEAEA] dark:bg-slate-900 border border-black/[0.06] dark:border-white/[0.08] p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <span className="text-xs font-[600] uppercase tracking-wider text-[#7A5CF0]">
+            Audited Compensation Benchmarks
+          </span>
+          <h3 className="text-2xl font-[600] tracking-[-0.03em] text-[#000000] dark:text-white mt-1">
+            Pay Equity Parity Calculator
+          </h3>
+          <p className="text-xs sm:text-sm text-[#5E6064] mt-1 max-w-xl">
+            Compare your compensation against validated market medians, uncover systemic undervaluation, and generate high-leverage negotiation scripts.
           </p>
-
-          <div className="flex flex-wrap items-center gap-4 pt-2 text-xs text-emerald-200/90 font-medium">
-            <span className="flex items-center gap-1.5 bg-emerald-950/60 px-3 py-1.5 rounded-xl border border-emerald-800/60">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              100% Client-Side Private (Zero Data Tracked)
-            </span>
-            <span className="flex items-center gap-1.5 bg-emerald-950/60 px-3 py-1.5 rounded-xl border border-emerald-800/60">
-              <Sparkles className="w-4 h-4 text-amber-300" />
-              Calibrated for 2024–2026 Tech Bands
-            </span>
-          </div>
         </div>
 
-        {/* Glow */}
-        <div className="absolute right-0 top-0 -mr-20 -mt-20 w-96 h-96 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="flex items-center gap-2">
+          <span className="px-3 py-1.5 rounded-full text-xs font-[500] bg-white dark:bg-slate-800 border border-black/[0.06] dark:border-white/[0.08] text-[#3A3C40] dark:text-white flex items-center gap-1.5 shadow-sm">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+            100% Client-Side Private
+          </span>
+        </div>
       </div>
 
       {/* Main Interactive Grid */}
@@ -148,24 +124,24 @@ export default function PayEquity({ showToast, userProfile }) {
         
         {/* LEFT COLUMN: Input Configuration (5 Cols) */}
         <div className="lg:col-span-5 space-y-6">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-5">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
-              <h2 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <DollarSign className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+          <div className="bg-[#FFFFFF] dark:bg-slate-900 border border-black/[0.06] dark:border-white/[0.08] rounded-[16px] p-6 shadow-sm space-y-5">
+            <div className="flex items-center justify-between pb-3 border-b border-black/[0.06] dark:border-white/[0.08]">
+              <h4 className="text-[15px] font-[600] text-[#000000] dark:text-white flex items-center gap-2">
+                <DollarSign className="w-4 h-4 text-[#F8533F]" />
                 Your Compensation Profile
-              </h2>
-              <span className="text-[11px] text-slate-400">Live Calibration</span>
+              </h4>
+              <span className="text-[11px] text-[#5E6064]">Live Calibration</span>
             </div>
 
             {/* Discipline */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
-                Discipline / Specialization
+              <label className="block text-xs font-[600] uppercase tracking-wider text-[#5E6064] mb-2">
+                Discipline / Track
               </label>
               <select
                 value={selectedDiscipline}
                 onChange={(e) => setSelectedDiscipline(e.target.value)}
-                className="w-full p-3 text-xs sm:text-sm rounded-2xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium"
+                className="w-full p-3 text-xs sm:text-sm rounded-[12px] border border-black/[0.08] dark:border-white/[0.1] bg-[#FFFFFF] dark:bg-slate-800 text-[#000000] dark:text-white focus:outline-none focus:ring-2 focus:ring-[#7A5CF0]"
               >
                 {DISCIPLINES.map(d => (
                   <option key={d.id} value={d.id}>{d.label}</option>
@@ -173,9 +149,9 @@ export default function PayEquity({ showToast, userProfile }) {
               </select>
             </div>
 
-            {/* Role Level */}
+            {/* Seniority */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+              <label className="block text-xs font-[600] uppercase tracking-wider text-[#5E6064] mb-2">
                 Seniority Level
               </label>
               <div className="grid grid-cols-1 gap-2">
@@ -186,17 +162,17 @@ export default function PayEquity({ showToast, userProfile }) {
                       type="button"
                       key={level.id}
                       onClick={() => setSelectedLevel(level.id)}
-                      className={`p-3 rounded-2xl border text-left flex items-center justify-between transition-all ${
+                      className={`p-3 rounded-[12px] border text-left flex items-center justify-between transition-all cursor-pointer ${
                         isSelected
-                          ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-500 text-emerald-900 dark:text-emerald-200 ring-2 ring-emerald-500/20'
-                          : 'border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700'
+                          ? 'bg-gradient-to-r from-[#F1EDFE] to-[#E8E2FD] border-[#7A5CF0] text-[#6A4CEB]'
+                          : 'border-black/[0.08] dark:border-white/[0.1] text-[#3A3C40] dark:text-slate-300 bg-white dark:bg-slate-800'
                       }`}
                     >
                       <div>
-                        <span className="text-xs font-bold block">{level.label}</span>
-                        <span className="text-[10px] text-slate-500 dark:text-slate-400">{level.yoe}</span>
+                        <span className="text-xs font-[600] block">{level.label}</span>
+                        <span className="text-[10px] text-[#5E6064]">{level.yoe}</span>
                       </div>
-                      {isSelected && <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />}
+                      {isSelected && <Check className="w-4 h-4 text-[#6A4CEB]" />}
                     </button>
                   );
                 })}
@@ -205,13 +181,13 @@ export default function PayEquity({ showToast, userProfile }) {
 
             {/* Location */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
-                Metro Location & Cost of Living Tier
+              <label className="block text-xs font-[600] uppercase tracking-wider text-[#5E6064] mb-2">
+                Metro Location
               </label>
               <select
                 value={selectedLocation}
                 onChange={(e) => setSelectedLocation(e.target.value)}
-                className="w-full p-3 text-xs sm:text-sm rounded-2xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium"
+                className="w-full p-3 text-xs sm:text-sm rounded-[12px] border border-black/[0.08] dark:border-white/[0.1] bg-[#FFFFFF] dark:bg-slate-800 text-[#000000] dark:text-white focus:outline-none focus:ring-2 focus:ring-[#7A5CF0]"
               >
                 {LOCATIONS.map(loc => (
                   <option key={loc.id} value={loc.id}>{loc.label} ({loc.tier})</option>
@@ -219,13 +195,13 @@ export default function PayEquity({ showToast, userProfile }) {
               </select>
             </div>
 
-            {/* Current Salary Slider & Input */}
-            <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
+            {/* Current Salary Slider */}
+            <div className="pt-2 border-t border-black/[0.06] dark:border-white/[0.08]">
               <div className="flex items-center justify-between mb-2">
-                <label className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  Current Annual Base Salary ($)
+                <label className="text-xs font-[600] uppercase tracking-wider text-[#5E6064]">
+                  Current Annual Base ($)
                 </label>
-                <div className="text-lg font-black text-slate-900 dark:text-white">
+                <div className="text-lg font-[600] text-[#000000] dark:text-white">
                   ${userSalary.toLocaleString()}
                 </div>
               </div>
@@ -237,70 +213,65 @@ export default function PayEquity({ showToast, userProfile }) {
                 step="5000"
                 value={userSalary}
                 onChange={(e) => setUserSalary(Number(e.target.value))}
-                className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-600"
+                className="w-full h-2 bg-[#EAEAEA] dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-[#F8533F]"
               />
 
-              <div className="flex justify-between text-[10px] text-slate-400 mt-1 font-mono">
-                <span>$60,000</span>
-                <span>$250,000</span>
-                <span>$450,000+</span>
+              <div className="flex justify-between text-[10px] text-[#5E6064] mt-1 font-mono">
+                <span>$60K</span>
+                <span>$250K</span>
+                <span>$450K+</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* RIGHT COLUMN: Visual Comparison Bars & Pay Gap Analysis (7 Cols) */}
+        {/* RIGHT COLUMN: Visual Comparison & Benchmark Bars (7 Cols) */}
         <div className="lg:col-span-7 space-y-6">
           
-          {/* Live Analysis Badge Card */}
-          <div className={`p-6 rounded-3xl border shadow-sm transition-all ${
+          {/* Analysis Badge Card */}
+          <div className={`p-6 rounded-[16px] border shadow-sm transition-all ${
             isUndervalued
-              ? 'bg-rose-50/70 dark:bg-rose-950/30 border-rose-300 dark:border-rose-900/60'
-              : 'bg-emerald-50/70 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-900/60'
+              ? 'bg-[#FFF5F4] dark:bg-rose-950/20 border-[#F8533F]/30'
+              : 'bg-emerald-50/70 dark:bg-emerald-950/20 border-emerald-300/40'
           }`}>
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div className="flex items-start gap-3">
-                <div className={`p-3 rounded-2xl shrink-0 ${
-                  isUndervalued ? 'bg-rose-500 text-white' : 'bg-emerald-500 text-white'
+            <div className="flex items-start gap-3">
+              <div className={`p-2.5 rounded-[12px] shrink-0 ${
+                isUndervalued ? 'bg-[#F8533F] text-white' : 'bg-emerald-500 text-white'
+              }`}>
+                {isUndervalued ? <AlertCircle className="w-5 h-5" /> : <CheckCircle2 className="w-5 h-5" />}
+              </div>
+
+              <div className="space-y-1">
+                <span className={`text-[11px] uppercase font-[600] tracking-wider px-2.5 py-0.5 rounded-full ${
+                  isUndervalued 
+                    ? 'bg-[#FFEBE8] text-[#F8533F]' 
+                    : 'bg-emerald-100 text-emerald-800'
                 }`}>
-                  {isUndervalued ? <AlertCircle className="w-6 h-6" /> : <CheckCircle2 className="w-6 h-6" />}
-                </div>
+                  {isUndervalued ? 'Pay Gap Disparity Detected' : 'At or Above Market Benchmark'}
+                </span>
 
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <span className={`text-xs uppercase font-extrabold tracking-wider px-2.5 py-0.5 rounded-full ${
-                      isUndervalued 
-                        ? 'bg-rose-200 text-rose-800 dark:bg-rose-900 dark:text-rose-200' 
-                        : 'bg-emerald-200 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200'
-                    }`}>
-                      {isUndervalued ? 'Pay Gap Disparity Detected' : 'At or Above Market Benchmark'}
-                    </span>
-                  </div>
+                <h3 className="text-xl font-[600] text-[#000000] dark:text-white">
+                  {isUndervalued ? (
+                    <>Estimated Under-valuation: <span className="text-[#F8533F]">-${gapAmount.toLocaleString()} / year (-{gapPercentage}%)</span></>
+                  ) : (
+                    <>Earning <span className="text-emerald-600">+${gapAmount.toLocaleString()} (+{gapPercentage}%)</span> above market median</>
+                  )}
+                </h3>
 
-                  <h3 className="text-xl font-extrabold text-slate-900 dark:text-white">
-                    {isUndervalued ? (
-                      <>Estimated Under-valuation: <span className="text-rose-600 dark:text-rose-400">-${gapAmount.toLocaleString()} / year (-{gapPercentage}%)</span></>
-                    ) : (
-                      <>You are earning <span className="text-emerald-600 dark:text-emerald-400">+${gapAmount.toLocaleString()} (+{gapPercentage}%)</span> above market median</>
-                    )}
-                  </h3>
-
-                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                    {isUndervalued 
-                      ? `Based on verified 2024–2026 tech calibrations for ${benchmark.levelName} in ${benchmark.locationName}, your current base is below the market median ($${benchmark.auditedMarketMedian.toLocaleString()}).`
-                      : `Your current compensation is competitive and sits in the upper quartiles for ${benchmark.levelName} in ${benchmark.locationName}.`}
-                  </p>
-                </div>
+                <p className="text-xs text-[#5E6064] leading-relaxed">
+                  {isUndervalued 
+                    ? `Based on verified 2024–2026 tech calibrations for ${benchmark.levelName} in ${benchmark.locationName}, your current base is below the market median ($${benchmark.auditedMarketMedian.toLocaleString()}).`
+                    : `Your current compensation sits in the upper quartiles for ${benchmark.levelName} in ${benchmark.locationName}.`}
+                </p>
               </div>
             </div>
 
-            {/* Lifetime Compounding impact callout */}
             {isUndervalued && (
-              <div className="mt-4 pt-4 border-t border-rose-200/80 dark:border-rose-900/60 flex items-center justify-between text-xs">
-                <span className="text-slate-700 dark:text-slate-300 font-medium">
+              <div className="mt-4 pt-4 border-t border-[#F8533F]/20 flex items-center justify-between text-xs">
+                <span className="text-[#3A3C40] font-[500]">
                   <strong>10-Year Compounding Loss:</strong> (Salary delta + 401k match + annual compound raises)
                 </span>
-                <span className="font-extrabold text-rose-600 dark:text-rose-400 font-mono text-sm">
+                <span className="font-[600] text-[#F8533F] font-mono text-sm">
                   -${tenYearCompoundedLoss.toLocaleString()}
                 </span>
               </div>
@@ -308,118 +279,99 @@ export default function PayEquity({ showToast, userProfile }) {
           </div>
 
           {/* Visual Benchmark Comparison Bars */}
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-6">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
-              <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-deepViolet dark:text-purple-400" />
+          <div className="bg-[#FFFFFF] dark:bg-slate-900 border border-black/[0.06] dark:border-white/[0.08] rounded-[16px] p-6 shadow-sm space-y-5">
+            <div className="flex items-center justify-between pb-3 border-b border-black/[0.06] dark:border-white/[0.08]">
+              <h4 className="text-[15px] font-[600] text-[#000000] dark:text-white flex items-center gap-2">
+                <TrendingUp className="w-4 h-4 text-[#7A5CF0]" />
                 Live Benchmark Distribution Bar
-              </h3>
-              <span className="text-xs text-slate-400 font-mono">{benchmark.levelName}</span>
+              </h4>
+              <span className="text-xs text-[#5E6064] font-mono">{benchmark.levelName}</span>
             </div>
 
             <div className="space-y-4">
-              {/* Bar 1: User's Salary */}
+              {/* Bar 1: User Salary */}
               <div className="space-y-1.5">
-                <div className="flex justify-between text-xs font-semibold">
-                  <span className="text-slate-900 dark:text-white flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-deepViolet inline-block" />
-                    Your Current Salary
+                <div className="flex justify-between text-xs font-[500]">
+                  <span className="text-[#000000] dark:text-white flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#000000] inline-block" />
+                    Your Current Base
                   </span>
-                  <span className="font-bold text-deepViolet dark:text-purple-300 font-mono">
+                  <span className="font-[600] text-[#000000] dark:text-white font-mono">
                     ${userSalary.toLocaleString()}
                   </span>
                 </div>
-                <div className="w-full h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden p-0.5">
+                <div className="w-full h-3.5 bg-[#EAEAEA] dark:bg-slate-800 rounded-full overflow-hidden p-0.5">
                   <div
-                    className="h-full bg-gradient-to-r from-deepViolet to-purple-500 rounded-full transition-all duration-500 shadow-sm"
+                    className="h-full bg-[#000000] dark:bg-white rounded-full transition-all duration-500"
                     style={{ width: `${getWidthPct(userSalary)}%` }}
                   />
                 </div>
               </div>
 
-              {/* Bar 2: Audited Female Tech Median */}
+              {/* Bar 2: Female Median */}
               <div className="space-y-1.5">
-                <div className="flex justify-between text-xs font-semibold">
-                  <span className="text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-roseQuartz inline-block" />
+                <div className="flex justify-between text-xs font-[500]">
+                  <span className="text-[#5E6064] flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#F8533F] inline-block" />
                     Female Tech Median (Audited -9% Gap)
                   </span>
-                  <span className="font-mono text-slate-700 dark:text-slate-300">
+                  <span className="font-mono text-[#3A3C40] dark:text-slate-300">
                     ${benchmark.auditedFemaleMedian.toLocaleString()}
                   </span>
                 </div>
-                <div className="w-full h-3 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden p-0.5">
+                <div className="w-full h-3 bg-[#EAEAEA] dark:bg-slate-800 rounded-full overflow-hidden p-0.5">
                   <div
-                    className="h-full bg-roseQuartz rounded-full transition-all duration-500 opacity-90"
+                    className="h-full bg-[#F8533F] rounded-full transition-all duration-500 opacity-90"
                     style={{ width: `${getWidthPct(benchmark.auditedFemaleMedian)}%` }}
                   />
                 </div>
               </div>
 
-              {/* Bar 3: Industry Audited Market Median */}
+              {/* Bar 3: Full Market Median */}
               <div className="space-y-1.5">
-                <div className="flex justify-between text-xs font-semibold">
-                  <span className="text-slate-900 dark:text-white flex items-center gap-1.5 font-bold">
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block" />
-                    Industry Full Market Median (Parity Target)
+                <div className="flex justify-between text-xs font-[600]">
+                  <span className="text-[#000000] dark:text-white flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#7A5CF0] inline-block" />
+                    Industry Full Market Target (Parity Goal)
                   </span>
-                  <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400">
+                  <span className="font-mono text-[#7A5CF0]">
                     ${benchmark.auditedMarketMedian.toLocaleString()}
                   </span>
                 </div>
-                <div className="w-full h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden p-0.5">
+                <div className="w-full h-3.5 bg-[#EAEAEA] dark:bg-slate-800 rounded-full overflow-hidden p-0.5">
                   <div
-                    className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full transition-all duration-500 shadow-sm"
+                    className="h-full bg-[#7A5CF0] rounded-full transition-all duration-500"
                     style={{ width: `${getWidthPct(benchmark.auditedMarketMedian)}%` }}
                   />
                 </div>
               </div>
 
-              {/* Bar 4: 75th Percentile (Top Quartile) */}
+              {/* Bar 4: 75th Percentile */}
               <div className="space-y-1.5">
-                <div className="flex justify-between text-xs font-semibold">
-                  <span className="text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-indigo-400 inline-block" />
-                    75th Percentile (High Performer Benchmark)
+                <div className="flex justify-between text-xs font-[500]">
+                  <span className="text-[#5E6064] flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-slate-400 inline-block" />
+                    75th Percentile (Top Quartile)
                   </span>
-                  <span className="font-mono text-slate-700 dark:text-slate-300">
+                  <span className="font-mono text-[#3A3C40] dark:text-slate-300">
                     ${benchmark.percentile75.toLocaleString()}
                   </span>
                 </div>
-                <div className="w-full h-3 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden p-0.5">
+                <div className="w-full h-2.5 bg-[#EAEAEA] dark:bg-slate-800 rounded-full overflow-hidden p-0.5">
                   <div
-                    className="h-full bg-indigo-400 rounded-full transition-all duration-500 opacity-80"
+                    className="h-full bg-slate-400 rounded-full transition-all duration-500 opacity-80"
                     style={{ width: `${getWidthPct(benchmark.percentile75)}%` }}
-                  />
-                </div>
-              </div>
-
-              {/* Bar 5: 90th Percentile */}
-              <div className="space-y-1.5">
-                <div className="flex justify-between text-xs font-semibold">
-                  <span className="text-slate-500 dark:text-slate-500 flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block" />
-                    90th Percentile (Tier 1 Top-Of-Band)
-                  </span>
-                  <span className="font-mono text-slate-600 dark:text-slate-400">
-                    ${benchmark.percentile90.toLocaleString()}
-                  </span>
-                </div>
-                <div className="w-full h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden p-0.5">
-                  <div
-                    className="h-full bg-amber-400 rounded-full transition-all duration-500 opacity-70"
-                    style={{ width: `${getWidthPct(benchmark.percentile90)}%` }}
                   />
                 </div>
               </div>
             </div>
 
-            <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[11px] text-slate-500">
+            <div className="pt-2 border-t border-black/[0.06] dark:border-white/[0.08] flex items-center justify-between text-[11px] text-[#5E6064]">
               <span className="flex items-center gap-1">
-                <Info className="w-3.5 h-3.5 text-deepViolet" />
-                Audited against 12,000+ certified disclosures
+                <Info className="w-3.5 h-3.5 text-[#7A5CF0]" />
+                Audited against 12,000+ disclosures
               </span>
-              <span className="font-mono text-purple-600 dark:text-purple-400 font-bold">
+              <span className="font-mono text-[#7A5CF0] font-[600]">
                 Parity Target: ${benchmark.auditedMarketMedian.toLocaleString()}
               </span>
             </div>
@@ -427,29 +379,28 @@ export default function PayEquity({ showToast, userProfile }) {
         </div>
       </div>
 
-      {/* SECTION: Actionable Negotiation Scripts Generator */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
+      {/* Actionable Negotiation Scripts */}
+      <div className="bg-[#FFFFFF] dark:bg-slate-900 border border-black/[0.06] dark:border-white/[0.08] rounded-[16px] p-6 sm:p-8 shadow-sm space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-black/[0.06] dark:border-white/[0.08]">
           <div>
-            <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-deepViolet dark:text-purple-400 mb-1">
-              <Sparkles className="w-4 h-4" />
+            <span className="text-xs font-[600] uppercase tracking-wider text-[#7A5CF0]">
               Dynamic Counter-Offer Templates
-            </div>
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
+            </span>
+            <h4 className="text-2xl font-[600] tracking-[-0.03em] text-[#000000] dark:text-white mt-1">
               Actionable Negotiation Scripts
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-              Tailored automatically with your exact role title, target parity wage (${benchmark.auditedMarketMedian.toLocaleString()}), and calculated gap.
+            </h4>
+            <p className="text-xs text-[#5E6064] mt-1">
+              Tailored automatically with your target parity wage (${benchmark.auditedMarketMedian.toLocaleString()}) and calculated gap.
             </p>
           </div>
 
           <button
             onClick={() => handleCopyScript(renderedScript, activeTemplate.id)}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold bg-deepViolet hover:bg-purple-700 text-white shadow-md shadow-purple-900/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-full text-xs sm:text-sm font-[500] bg-[#000000] hover:bg-slate-900 text-white shadow-md transition-all cursor-pointer border-none"
           >
             {copiedScriptId === activeTemplate.id ? (
               <>
-                <Check className="w-4 h-4 text-emerald-300" />
+                <Check className="w-4 h-4 text-emerald-400" />
                 <span>Copied to Clipboard!</span>
               </>
             ) : (
@@ -461,16 +412,16 @@ export default function PayEquity({ showToast, userProfile }) {
           </button>
         </div>
 
-        {/* Template Selector Tabs */}
+        {/* Template Tabs */}
         <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
           {NEGOTIATION_TEMPLATES.map((tmpl) => (
             <button
               key={tmpl.id}
               onClick={() => setActiveTemplateTab(tmpl.id)}
-              className={`px-4 py-2 rounded-2xl text-xs font-bold whitespace-nowrap transition-all ${
+              className={`px-4 py-2 rounded-full text-xs font-[500] whitespace-nowrap transition-all cursor-pointer border ${
                 activeTemplateTab === tmpl.id
-                  ? 'bg-deepViolet text-white shadow-md shadow-purple-900/20'
-                  : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+                  ? 'bg-[#000000] text-white border-transparent font-[600]'
+                  : 'bg-[#FFFFFF] dark:bg-slate-800 border-black/[0.08] dark:border-white/[0.1] text-[#3A3C40] dark:text-slate-300'
               }`}
             >
               {tmpl.title}
@@ -478,250 +429,13 @@ export default function PayEquity({ showToast, userProfile }) {
           ))}
         </div>
 
-        {/* Script Preview Box */}
-        <div className="relative rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 p-6 space-y-3">
-          <div className="flex items-center justify-between text-xs text-slate-500">
-            <span className="font-semibold text-deepViolet dark:text-purple-400">
-              {activeTemplate.purpose}
-            </span>
-            <span className="font-mono text-[11px] bg-slate-200 dark:bg-slate-700 px-2 py-0.5 rounded-md">
-              Markdown / Email Ready
-            </span>
-          </div>
-
-          <pre className="font-sans text-xs sm:text-sm text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-relaxed select-text font-normal">
+        {/* Script Box */}
+        <div className="rounded-[12px] bg-[#EAEAEA]/40 dark:bg-slate-800/60 border border-black/[0.06] dark:border-white/[0.08] p-6 space-y-3">
+          <pre className="font-sans text-xs sm:text-sm text-[#000000] dark:text-slate-200 whitespace-pre-wrap leading-relaxed select-text font-normal">
             {renderedScript}
           </pre>
         </div>
-
-        {/* Tactical Tips for California & Federal Pay Equity */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
-          <div className="p-4 rounded-2xl bg-purple-50/50 dark:bg-purple-950/20 border border-purple-100 dark:border-purple-900/40 space-y-1.5">
-            <h4 className="text-xs font-bold text-purple-900 dark:text-purple-200 flex items-center gap-1.5">
-              <Scale className="w-4 h-4 text-deepViolet" />
-              California Labor Code § 1197.5
-            </h4>
-            <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
-              Employers cannot prohibit employees from disclosing, discussing, or inquiring about their wages. You have statutory right to discuss comp with peers.
-            </p>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/40 space-y-1.5">
-            <h4 className="text-xs font-bold text-emerald-900 dark:text-emerald-200 flex items-center gap-1.5">
-              <Calendar className="w-4 h-4 text-emerald-600" />
-              Timing Your Calibration Ask
-            </h4>
-            <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
-              Always deliver your counter 4 to 6 weeks BEFORE corporate calibration lock. Once HR locks compensation spreadsheets, out-of-cycle exceptions require VP approval.
-            </p>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-rose-50/50 dark:bg-rose-950/20 border border-rose-100 dark:border-rose-900/40 space-y-1.5">
-            <h4 className="text-xs font-bold text-rose-900 dark:text-rose-200 flex items-center gap-1.5">
-              <Lock className="w-4 h-4 text-rose-600" />
-              Never Reveal Salary First
-            </h4>
-            <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
-              In CA, NY, and WA, employers are legally prohibited from asking past salary history. Anchor strictly on market benchmarks and the role's budget band.
-            </p>
-          </div>
-        </div>
       </div>
-
-      {/* SECTION: Community Real Salary Disclosures */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
-          <div>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <Scale className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-              Anonymous Peer Wage Disclosures
-            </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-              Crowdsourced by Catalyst California Conference members to combat opaque corporate wage secrets.
-            </p>
-          </div>
-
-          <button
-            onClick={() => setIsSubmitModalOpen(true)}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition-all"
-          >
-            <PlusCircle className="w-4 h-4" />
-            <span>Anonymously Add Your Salary</span>
-          </button>
-        </div>
-
-        {/* Submissions Feed */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {communitySubmissions.map((item) => (
-            <div
-              key={item.id}
-              className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 space-y-3 hover:border-purple-300 dark:hover:border-purple-700 transition-all"
-            >
-              <div className="flex items-start justify-between gap-2">
-                <div>
-                  <h4 className="text-sm font-bold text-slate-900 dark:text-white">
-                    {item.role}
-                  </h4>
-                  <p className="text-xs text-slate-500">
-                    {item.companyTier} • {item.location}
-                  </p>
-                </div>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
-                  {item.yoe} YOE
-                </span>
-              </div>
-
-              <div className="grid grid-cols-3 gap-2 py-2 border-y border-slate-200/60 dark:border-slate-700/60 text-xs">
-                <div>
-                  <span className="text-[10px] text-slate-400 uppercase">Base Salary</span>
-                  <div className="font-bold text-slate-900 dark:text-white font-mono">
-                    ${item.baseSalary.toLocaleString()}
-                  </div>
-                </div>
-                <div>
-                  <span className="text-[10px] text-slate-400 uppercase">Total Comp</span>
-                  <div className="font-bold text-emerald-600 dark:text-emerald-400 font-mono">
-                    ${item.totalComp.toLocaleString()}
-                  </div>
-                </div>
-                <div>
-                  <span className="text-[10px] text-slate-400 uppercase">Negotiated</span>
-                  <div className="font-bold text-purple-600 dark:text-purple-400 font-mono">
-                    {item.negotiatedDelta}
-                  </div>
-                </div>
-              </div>
-
-              {item.tips && (
-                <div className="text-[11px] text-slate-600 dark:text-slate-300 italic">
-                  "{item.tips}"
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ANONYMOUS SALARY SUBMISSION MODAL */}
-      {isSubmitModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-fadeIn">
-          <div className="w-full max-w-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <ShieldCheck className="w-5 h-5 text-emerald-500" />
-                Submit Anonymous Salary Datapoint
-              </h3>
-              <button
-                onClick={() => setIsSubmitModalOpen(false)}
-                className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <form onSubmit={handleCommunitySubmit} className="space-y-4 text-xs">
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                    Role Title
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={submissionForm.role}
-                    onChange={(e) => setSubmissionForm({ ...submissionForm, role: e.target.value })}
-                    className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                    Company Tier
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={submissionForm.companyTier}
-                    onChange={(e) => setSubmissionForm({ ...submissionForm, companyTier: e.target.value })}
-                    className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-3 gap-3">
-                <div>
-                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                    Base Salary ($)
-                  </label>
-                  <input
-                    type="number"
-                    required
-                    value={submissionForm.baseSalary}
-                    onChange={(e) => setSubmissionForm({ ...submissionForm, baseSalary: e.target.value })}
-                    className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                    Total Comp ($)
-                  </label>
-                  <input
-                    type="number"
-                    required
-                    value={submissionForm.totalComp}
-                    onChange={(e) => setSubmissionForm({ ...submissionForm, totalComp: e.target.value })}
-                    className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                    YOE
-                  </label>
-                  <input
-                    type="number"
-                    required
-                    value={submissionForm.yoe}
-                    onChange={(e) => setSubmissionForm({ ...submissionForm, yoe: e.target.value })}
-                    className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                  Negotiation Advice / How did you push for parity?
-                </label>
-                <textarea
-                  rows={3}
-                  required
-                  placeholder="e.g. Cited competing offer and asked for market 75th percentile during calibration..."
-                  value={submissionForm.tips}
-                  onChange={(e) => setSubmissionForm({ ...submissionForm, tips: e.target.value })}
-                  className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
-                />
-              </div>
-
-              <div className="pt-2 flex items-center justify-end gap-3">
-                <button
-                  type="button"
-                  onClick={() => setIsSubmitModalOpen(false)}
-                  className="px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-5 py-2.5 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md"
-                >
-                  Publish Anonymous Datapoint
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
