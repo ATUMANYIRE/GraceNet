@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Navbar from './components/Navbar';
+import Hero from './components/Hero';
 import Sponsorship from './components/Sponsorship';
 import PayEquity from './components/PayEquity';
 import Roadmaps from './components/Roadmaps';
@@ -14,12 +15,15 @@ export default function App() {
   // Navigation active tab: 'sponsors' | 'pay-equity' | 'roadmaps' | 'community'
   const [activeTab, setActiveTab] = useState('sponsors');
 
-  // Theme: Warm Porcelain (#FDFBF7) vs Dark Slate (#0F172A)
+  // Theme: Warm Porcelain (#FEFEFE / #FDFBF7) vs Dark Slate (#0F172A)
   const [darkMode, setDarkMode] = useState(false);
 
   // Modals state
   const [isSafetyOpen, setIsSafetyOpen] = useState(false);
   const [isJoinOpen, setIsJoinOpen] = useState(false);
+
+  // Reference for smooth scrolling to content area
+  const contentSectionRef = useRef(null);
 
   // User Profile
   const [userProfile, setUserProfile] = useState({
@@ -51,7 +55,7 @@ export default function App() {
     }
   ]);
 
-  // Roadmaps completed milestones (pre-seeded with 2 completed for immediate visual impact)
+  // Roadmaps completed milestones
   const [completedMilestones, setCompletedMilestones] = useState(['fs-1', 'os-1']);
 
   // Community posts state
@@ -81,6 +85,13 @@ export default function App() {
       document.documentElement.classList.remove('dark');
     }
   }, [darkMode]);
+
+  const scrollToContent = (tabId) => {
+    setActiveTab(tabId);
+    if (contentSectionRef.current) {
+      contentSectionRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   // Handlers
   const handleSendRequest = (newRequest) => {
@@ -130,7 +141,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-porcelain dark:bg-slateDark text-slate-900 dark:text-slate-100 transition-colors duration-200 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#FEFEFE] dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-200 flex flex-col font-sans">
       {/* Navigation Header */}
       <Navbar
         activeTab={activeTab}
@@ -143,8 +154,55 @@ export default function App() {
         pendingRequestsCount={requestsSent.length}
       />
 
-      {/* Main Content Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+      {/* Corvana-Style Landing Hero for GraceNet */}
+      <Hero
+        onExploreSponsors={() => scrollToContent('sponsors')}
+        onExplorePayEquity={() => scrollToContent('pay-equity')}
+        onOpenJoin={() => setIsJoinOpen(true)}
+      />
+
+      {/* Interactive Platform Workspace Section */}
+      <section 
+        ref={contentSectionRef} 
+        className="flex-1 max-w-[1514px] w-full mx-auto px-4 sm:px-8 py-8 sm:py-12 border-t border-slate-100 dark:border-slate-800"
+      >
+        {/* Module Sub-Header Tabs */}
+        <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-100 dark:border-slate-800">
+          <div>
+            <span className="text-xs font-bold uppercase tracking-wider text-deepViolet dark:text-purple-400">
+              GraceNet Platform Modules
+            </span>
+            <h2 className="text-2xl font-bold tracking-tight text-slate-950 dark:text-white mt-1">
+              {activeTab === 'sponsors' && 'Executive Sponsorship & Mentorship Matcher'}
+              {activeTab === 'pay-equity' && 'Audited Wage Transparency & Parity Engine'}
+              {activeTab === 'roadmaps' && 'Grace Hopper Technical Skill Roadmaps'}
+              {activeTab === 'community' && 'Safe Space Community Forum'}
+            </h2>
+          </div>
+
+          <div className="hidden sm:flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-2xl">
+            {[
+              { id: 'sponsors', label: 'Sponsors' },
+              { id: 'pay-equity', label: 'Pay Equity' },
+              { id: 'roadmaps', label: 'Roadmaps' },
+              { id: 'community', label: 'Community' },
+            ].map((t) => (
+              <button
+                key={t.id}
+                onClick={() => setActiveTab(t.id)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+                  activeTab === t.id
+                    ? 'bg-white dark:bg-slate-900 text-deepViolet dark:text-white shadow-sm'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                }`}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Tab 1: Sponsorship Matcher */}
         {activeTab === 'sponsors' && (
           <Sponsorship
             requestsSent={requestsSent}
@@ -154,6 +212,7 @@ export default function App() {
           />
         )}
 
+        {/* Tab 2: Wage Transparency */}
         {activeTab === 'pay-equity' && (
           <PayEquity
             showToast={showToast}
@@ -161,6 +220,7 @@ export default function App() {
           />
         )}
 
+        {/* Tab 3: Roadmaps */}
         {activeTab === 'roadmaps' && (
           <Roadmaps
             completedMilestones={completedMilestones}
@@ -169,6 +229,7 @@ export default function App() {
           />
         )}
 
+        {/* Tab 4: Community Hub */}
         {activeTab === 'community' && (
           <Community
             posts={posts}
@@ -179,7 +240,7 @@ export default function App() {
             userProfile={userProfile}
           />
         )}
-      </main>
+      </section>
 
       {/* Footer */}
       <Footer
@@ -203,7 +264,7 @@ export default function App() {
         showToast={showToast}
       />
 
-      {/* Floating Toast Notification System */}
+      {/* Floating Toast Feedback System */}
       <Toast toasts={toasts} onDismiss={handleDismissToast} />
     </div>
   );

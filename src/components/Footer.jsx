@@ -1,20 +1,19 @@
 import React from 'react';
-import { Sparkles, Heart, Shield, Code, ExternalLink } from 'lucide-react';
+import { Heart, Shield, Code, ExternalLink } from 'lucide-react';
+import Logo from './Logo';
 
 export default function Footer({ onOpenSafety, onOpenJoin, setActiveTab }) {
   return (
-    <footer className="mt-20 border-t border-purple-100 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-400 text-xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
+    <footer className="mt-16 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-400 text-xs">
+      <div className="max-w-[1514px] mx-auto px-4 sm:px-8 py-12 space-y-8">
         
         {/* Top Section */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand & Grace Hopper Homage */}
           <div className="md:col-span-2 space-y-3">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-deepViolet to-rose-500 flex items-center justify-center text-white">
-                <Sparkles className="w-4 h-4" />
-              </div>
-              <span className="text-lg font-extrabold text-slate-900 dark:text-white">
+              <Logo size={26} />
+              <span className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">
                 GraceNet
               </span>
               <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-deepViolet/10 text-deepViolet dark:bg-purple-950 dark:text-purple-300">
@@ -53,7 +52,7 @@ export default function Footer({ onOpenSafety, onOpenJoin, setActiveTab }) {
                   onClick={() => setActiveTab('pay-equity')}
                   className="hover:text-deepViolet dark:hover:text-purple-300 transition-colors"
                 >
-                  Wage Transparency & Calculator
+                  Wage Transparency & Parity
                 </button>
               </li>
               <li>
@@ -87,7 +86,7 @@ export default function Footer({ onOpenSafety, onOpenJoin, setActiveTab }) {
                   className="flex items-center gap-1 text-rose-600 dark:text-rose-400 font-semibold hover:underline"
                 >
                   <Shield className="w-3.5 h-3.5" />
-                  <span>Workplace Safety & Legal Help</span>
+                  <span>Workplace Safety & Legal Rights</span>
                 </button>
               </li>
               <li>
