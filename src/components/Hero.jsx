@@ -5,8 +5,8 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
   const videoRef = useRef(null);
   const heartbeatSvgRef = useRef(null);
 
-  // Build exact Corvana pixel ECG heartbeat trace
-  // Pixels: 6.2u squares on a 9.6u grid, coral #F8533F with lighter #FB7565 baseline dots.
+  // Exact Corvana Pixel ECG Heartbeat Trace:
+  // 6.2u squares on a 9.6u grid, coral #F8533F with lighter #FB7565 baseline dots.
   // Baseline sits 9u below the button center.
   // Four heartbeats at -462, -225, +231 and +468u from centre (757u).
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
       const x = col * gx;
       const t = Math.min(1, Math.max(0, x / W));
 
-      // Ends: baseline thins to sparse dots and fades toward both ends
+      // Ends thin to sparse dots and fade toward both ends
       const distFromEdge = Math.min(x, W - x);
       if (distFromEdge < 120 && col % 2 !== 0) continue;
       if (distFromEdge < 60 && col % 3 !== 0) continue;
@@ -57,21 +57,21 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
       } else {
         // Vertical pixel staircases: coral #F8533F
         switch (offsetInHb) {
-          case -3: // P bump start
+          case -3:
             rects.push(`<rect x="${x.toFixed(1)}" y="${(y0 - 8).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #F8533F;" />`);
             break;
-          case -2: // P bump peak
+          case -2:
             rects.push(`<rect x="${x.toFixed(1)}" y="${(y0 - 13).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #F8533F;" />`);
             break;
-          case -1: // Q dip
+          case -1:
             rects.push(`<rect x="${x.toFixed(1)}" y="${(y0 + 10).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #F8533F;" />`);
             break;
-          case 0: // Tall R spike (≈60u up vertical staircase)
+          case 0: // Tall R spike (≈60u up staircase)
             for (let y = y0 + 4; y >= y0 - 58; y -= gy) {
               rects.push(`<rect x="${x.toFixed(1)}" y="${(y - s/2).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #F8533F;" />`);
             }
             break;
-          case 1: // S drop (≈47u down vertical staircase)
+          case 1: // S drop (≈47u down staircase)
             for (let y = y0 - 36; y <= y0 + 46; y -= gy) {
               rects.push(`<rect x="${x.toFixed(1)}" y="${(y - s/2).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #F8533F;" />`);
             }
@@ -80,10 +80,10 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
             rects.push(`<rect x="${x.toFixed(1)}" y="${(y0 + 20).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #F8533F;" />`);
             rects.push(`<rect x="${x.toFixed(1)}" y="${(y0 + 6).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #F8533F;" />`);
             break;
-          case 3: // T bump start
+          case 3:
             rects.push(`<rect x="${x.toFixed(1)}" y="${(y0 - 10).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #F8533F;" />`);
             break;
-          case 4: // T bump peak
+          case 4:
             rects.push(`<rect x="${x.toFixed(1)}" y="${(y0 - 16).toFixed(1)}" width="${s}" height="${s}" class="ecg-pixel" style="--t: ${t.toFixed(3)}; --col: #F8533F;" />`);
             break;
           default:
@@ -96,7 +96,7 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
     svg.innerHTML = rects.join('');
   }, []);
 
-  // Video fade-in on playing
+  // Video loop fade-in on playing
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -115,15 +115,15 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
 
   return (
     <section className="relative w-full overflow-hidden flex flex-col items-center bg-[#FEFEFE] dark:bg-slate-950 font-sans">
-      {/* 1. ANNOUNCEMENT BAR: 38px, coral #FA6E5C */}
-      <div className="w-full h-[38px] bg-[#FA6E5C] flex items-center justify-center text-white text-[13.5px] font-medium tracking-[-0.01em] px-4 z-20 shrink-0">
+      {/* 1. ANNOUNCEMENT BAR: exact 38px, coral #FA6E5C, 13.5px font, underlined link */}
+      <div className="w-full h-[38px] bg-[#FA6E5C] flex items-center justify-center text-white text-[13.5px] font-[500] tracking-[-0.01em] px-4 z-20 shrink-0">
         <div className="inline-flex items-center gap-1.5">
-          <span>30% off for all new clinics & engineering cohorts.</span>
+          <span>Catalyst California Conference (C3) Hackathon • Advancing Women in Tech.</span>
           <button 
             onClick={onOpenJoin}
-            className="underline underline-offset-[3px] font-semibold text-[12.5px] tracking-[0.02em] hover:opacity-90 cursor-pointer ml-1 text-white bg-transparent border-none"
+            className="underline underline-offset-[3px] font-[600] text-[12.5px] tracking-[0.02em] hover:opacity-90 cursor-pointer ml-1 text-white bg-transparent border-none"
           >
-            CLAIM THE DEAL NOW
+            REQUEST SPONSORSHIP NOW
           </button>
         </div>
       </div>
@@ -133,25 +133,25 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
         {/* Headline: about 72u, 500 weight with tight tracking (-0.045em) */}
         <div className="overflow-hidden">
           <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[72px] font-[500] tracking-[-0.045em] text-[#000000] dark:text-white leading-[1.08]">
-            The AI Copilot Made For Calmer
+            The Career Copilot Made For
           </h1>
         </div>
         <div className="overflow-hidden">
           <div className="text-3xl sm:text-5xl md:text-6xl lg:text-[72px] font-[500] tracking-[-0.045em] text-[#000000] dark:text-white leading-[1.08]">
-            Clinical & Career Coordination
+            Women In Technology
           </div>
         </div>
 
-        {/* Subline: about 22.4u / 31u line height, two lines, color #5E6064 */}
+        {/* Subline: about 22.4u / 31u, two lines, color #5E6064 */}
         <div className="mt-4 sm:mt-5 max-w-[880px]">
           <p className="text-sm sm:text-lg md:text-[22.4px] leading-relaxed md:leading-[31px] text-[#5E6064] dark:text-slate-300 font-[400] tracking-[-0.015em]">
-            From first check-in to aftercare reminders, take over routine tasks and paperwork while giving every patient and technologist a warm welcome.
+            From salary parity audits to executive sponsorship doors, take control of your career trajectory while cultivating allies who advocate for you in closed-door calibration rooms.
           </p>
         </div>
 
         {/* 3. HEARTBEAT FIELD & MAIN BUTTON */}
         <div className="relative w-full h-[90px] flex items-center justify-center my-4 sm:my-6">
-          {/* Edge-to-edge pixel ECG heartbeat line: coral #F8533F with lighter #FB7565 dots */}
+          {/* Edge-to-edge pixel ECG trace: 6.2u squares on 9.6u grid, coral #F8533F with lighter #FB7565 dots */}
           <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
             <svg 
               ref={heartbeatSvgRef}
@@ -167,7 +167,7 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
               onClick={onExploreSponsors}
               className="w-full h-full rounded-full bg-[#000000] hover:bg-slate-900 text-white font-[500] text-lg sm:text-[22px] tracking-[-0.02em] flex items-center justify-center gap-2 shadow-[0_4px_14px_rgba(0,0,0,0.12)] transition-all group-hover:-translate-y-[1px] group-hover:shadow-[0_10px_24px_rgba(0,0,0,0.22)] active:translate-y-0"
             >
-              <span>Start Your Trial</span>
+              <span>Match With A Sponsor</span>
             </button>
           </div>
         </div>
@@ -176,12 +176,12 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
         <div className="w-full max-w-[1313.5px] mx-auto mb-8 sm:mb-12">
           <div className="w-full min-h-[420px] sm:h-[429.5px] rounded-[16px] grid grid-cols-1 md:grid-cols-12 gap-[7.5px] p-0.5">
             
-            {/* PANEL 1: PATIENT PANEL (436.5u / 4 cols) */}
+            {/* PANEL 1: EXECUTIVE SPONSOR PANEL (436.5u / 4 cols) */}
             <div className="md:col-span-4 h-full min-h-[380px] rounded-[16px] overflow-hidden relative shadow-sm bg-gradient-to-br from-[#a4e6ce] to-[#bde8f5]">
               {/* Still image fallback */}
               <img
                 src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/c43c6772-ae79-45f3-a2ff-90a401f03b48.webp"
-                alt="Laughing patient with silver wavy hair and coral knit sweater"
+                alt="Executive Sponsor Dr. Maya Lin-Vanderbilt"
                 className="absolute inset-0 w-full h-full object-cover"
               />
 
@@ -196,25 +196,36 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
                 playsInline
               />
 
-              {/* Verified Pill Header with Logo */}
+              {/* Verified Pill Header with GraceNet Logo */}
               <div className="absolute top-[18px] left-[18px] z-10 bg-white/75 dark:bg-slate-900/80 backdrop-blur-[12px] border border-white/90 dark:border-slate-700 rounded-full px-3 py-1.5 flex items-center gap-1.5 shadow-[0_4px_12px_rgba(0,0,0,0.05)] text-[11.5px] font-[500] text-[#3A3C40] dark:text-white">
                 <Logo size={14} />
-                <span>Front Desk Copilot</span>
+                <span>Executive Sponsor • Google Cloud</span>
+              </div>
+
+              {/* Bottom Glass Overlay */}
+              <div className="absolute bottom-4 left-4 right-4 z-10 bg-white/85 dark:bg-slate-900/85 backdrop-blur-[12px] border border-white/90 dark:border-slate-700 rounded-[14px] p-3 flex items-center justify-between shadow-md">
+                <div>
+                  <div className="text-xs font-[600] text-[#000000] dark:text-white">Dr. Maya Lin-Vanderbilt</div>
+                  <div className="text-[11px] text-[#5E6064]">VP of Engineering & Distributed Systems</div>
+                </div>
+                <span className="text-[10px] font-[600] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+                  14 Promoted
+                </span>
               </div>
             </div>
 
-            {/* PANEL 2: METRIC PANEL (425.5u / 4 cols): #EAEAEA with white 339x316u card */}
+            {/* PANEL 2: WAGE TRANSPARENCY METRIC PANEL (425.5u / 4 cols): #EAEAEA with white 339x316u card */}
             <div className="md:col-span-4 h-full min-h-[380px] rounded-[16px] bg-[#EAEAEA] dark:bg-slate-800 p-5 flex items-center justify-center shadow-sm">
               <div className="w-full max-w-[339px] h-[316px] bg-[#FFFFFF] dark:bg-slate-900 rounded-[16px] p-6 shadow-[0_8px_24px_rgba(0,0,0,0.04)] flex flex-col justify-between">
-                {/* Header: Check-ins Completed + › button with grey disc on hover */}
+                {/* Header: Pay Parity Reached + › button with grey disc on hover */}
                 <div className="flex items-center justify-between">
                   <span className="text-[14px] font-[500] text-[#3A3C40] dark:text-slate-300 tracking-[-0.01em]">
-                    Check-ins Completed
+                    Pay Parity Reached
                   </span>
                   <button
                     onClick={onExplorePayEquity}
                     className="w-[28px] h-[28px] rounded-full flex items-center justify-center text-[#5E6064] hover:text-[#000000] hover:bg-[#E2E2E2] dark:hover:bg-slate-800 transition-colors cursor-pointer border-none bg-transparent"
-                    aria-label="View check-in metrics"
+                    aria-label="Open Wage Transparency Tool"
                   >
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                       <polyline points="9 18 15 12 9 6"></polyline>
@@ -222,19 +233,19 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
                   </button>
                 </div>
 
-                {/* Big Stat Value: 18.7 (50u, 600) with small K */}
+                {/* Big Stat Value: $240 (50u, 600) with small K */}
                 <div className="mt-2">
                   <div className="flex items-baseline gap-0.5">
-                    <span className="text-[50px] font-[600] tracking-[-0.035em] text-[#000000] dark:text-white leading-none">18.7</span>
+                    <span className="text-[50px] font-[600] tracking-[-0.035em] text-[#000000] dark:text-white leading-none">$240</span>
                     <span className="text-[26px] font-[500] text-[#000000] dark:text-white">K</span>
                   </div>
 
-                  {/* Lavender Chip: +21.3% (#F1EDFE -> #E8E2FD, text #6A4CEB) + vs Prior Week */}
+                  {/* Lavender Chip: +21.3% (#F1EDFE -> #E8E2FD, text #6A4CEB) + vs Market Median */}
                   <div className="flex items-center gap-2 mt-2.5">
                     <span className="text-[12px] font-[600] px-2 py-0.5 rounded-full bg-gradient-to-r from-[#F1EDFE] to-[#E8E2FD] text-[#6A4CEB] tracking-[-0.01em]">
                       +21.3%
                     </span>
-                    <span className="text-[12.5px] font-[400] text-[#5E6064]">vs Prior Week</span>
+                    <span className="text-[12.5px] font-[400] text-[#5E6064]">vs Past Review</span>
                   </div>
                 </div>
 
@@ -253,7 +264,7 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
                     {/* Grey vertical drop line */}
                     <line x1="272" y1="18" x2="272" y2="86" stroke="#D0D0D2" strokeWidth="1.2" strokeDasharray="2.5 2.5" />
 
-                    {/* Violet trajectory #7A5CF0 */}
+                    {/* Violet trajectory #7A5CF0 (Industry Market Target) */}
                     <path
                       d="M 15 68 C 65 64, 110 52, 160 46 C 205 40, 235 32, 265 24"
                       stroke="#7A5CF0"
@@ -261,7 +272,7 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
                       strokeLinecap="round"
                     />
 
-                    {/* Coral trajectory #F8533F */}
+                    {/* Coral trajectory #F8533F (Negotiated Parity) */}
                     <path
                       d="M 15 54 C 60 48, 105 38, 155 30 C 195 24, 230 18, 272 18"
                       stroke="#F8533F"
@@ -290,7 +301,7 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
               <div className="w-full max-w-[292px] h-[241px] bg-white/76 dark:bg-slate-900/80 backdrop-blur-[18px] border border-white/88 dark:border-slate-700 rounded-[16px] p-5 flex flex-col justify-between shadow-[0_16px_36px_rgba(0,0,0,0.08)]">
                 <div className="flex items-center justify-between">
                   <span className="text-[13px] font-[500] text-[#3A3C40] dark:text-slate-300">
-                    Patient Trust Rating
+                    Promotion Success Rating
                   </span>
                   <Logo size={18} />
                 </div>
@@ -317,36 +328,36 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
                 </div>
 
                 <div className="flex items-center justify-between text-[13px]">
-                  <span className="font-[600] text-[#7A5CF0]">Wonderful</span>
+                  <span className="font-[600] text-[#7A5CF0]">Calibrated to Staff+</span>
                   <div className="flex items-center gap-0.5 text-[#F59E0B] text-[11px]">
                     ★★★★★
                   </div>
                 </div>
               </div>
 
-              {/* White Avatars Card: 66.5u tall, 3 overlapping avatars, 62K+ Clinicians Onboarded */}
+              {/* White Avatars Card: 66.5u tall, 3 overlapping avatars, 142+ Women Promoted */}
               <div className="w-full max-w-[292px] h-[66.5px] bg-[#FFFFFF] dark:bg-slate-900 rounded-[16px] px-4 flex items-center justify-between shadow-[0_10px_24px_rgba(0,0,0,0.06)] border border-slate-100 dark:border-slate-800">
                 <div className="flex items-center -space-x-2.5">
                   <img
-                    src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=80&auto=format&fit=crop&q=80"
-                    alt="Clinician"
+                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&auto=format&fit=crop&q=80"
+                    alt="Engineer Promoted"
                     className="w-[34px] h-[34px] rounded-[9px] border-2 border-white dark:border-slate-900 object-cover shadow-[0_2px_6px_rgba(0,0,0,0.08)]"
                   />
                   <img
-                    src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=80&auto=format&fit=crop&q=80"
-                    alt="Clinician"
+                    src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=80&auto=format&fit=crop&q=80"
+                    alt="Staff Architect Promoted"
                     className="w-[34px] h-[34px] rounded-[9px] border-2 border-white dark:border-slate-900 object-cover shadow-[0_2px_6px_rgba(0,0,0,0.08)]"
                   />
                   <img
-                    src="https://images.unsplash.com/photo-1594824813622-c3f3747b0e51?w=80&auto=format&fit=crop&q=80"
-                    alt="Clinician"
+                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&auto=format&fit=crop&q=80"
+                    alt="Principal Engineer Promoted"
                     className="w-[34px] h-[34px] rounded-[9px] border-2 border-white dark:border-slate-900 object-cover shadow-[0_2px_6px_rgba(0,0,0,0.08)]"
                   />
                 </div>
 
                 <div className="text-right flex flex-col items-end">
-                  <div className="text-[16.5px] font-[600] text-[#000000] dark:text-white tracking-[-0.02em] leading-tight">62K+</div>
-                  <div className="text-[11px] font-[400] text-[#5E6064]">Clinicians Onboarded</div>
+                  <div className="text-[16.5px] font-[600] text-[#000000] dark:text-white tracking-[-0.02em] leading-tight">142+</div>
+                  <div className="text-[11px] font-[400] text-[#5E6064]">Women Promoted in Tech</div>
                 </div>
               </div>
 
