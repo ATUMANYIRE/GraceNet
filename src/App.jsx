@@ -180,7 +180,7 @@ export default function App() {
             </h2>
           </div>
 
-          <div className="hidden sm:flex items-center gap-1.5 bg-[#EAEAEA] dark:bg-slate-800 p-1.5 rounded-2xl">
+          <div className="hidden sm:flex items-center gap-1 bg-white dark:bg-slate-900 border border-black/[0.08] dark:border-white/10 p-1 rounded-full shadow-2xs">
             {[
               { id: 'sponsors', label: 'Sponsorship' },
               { id: 'pay-equity', label: 'Pay Equity' },
@@ -190,9 +190,9 @@ export default function App() {
               <button
                 key={t.id}
                 onClick={() => setActiveTab(t.id)}
-                className={`px-4 py-2 rounded-xl text-[13px] font-[500] transition-all cursor-pointer border-none ${
+                className={`px-4 py-1.5 rounded-full text-[13px] font-[500] transition-all cursor-pointer border-none ${
                   activeTab === t.id
-                    ? 'bg-[#FFFFFF] dark:bg-slate-900 text-[#000000] dark:text-white shadow-sm font-[600]'
+                    ? 'bg-[#000000] text-white dark:bg-white dark:text-black shadow-xs font-[600]'
                     : 'bg-transparent text-[#5E6064] hover:text-[#000000] dark:text-slate-400 dark:hover:text-white'
                 }`}
               >

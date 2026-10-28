@@ -94,10 +94,10 @@ export default function Sponsorship({ requestsSent, onSendRequest, showToast, us
         <div className="flex items-center gap-2">
           <button
             onClick={() => setActiveTab('browse')}
-            className={`px-4 py-2 rounded-full text-[13px] font-[500] transition-all cursor-pointer border-none ${
+            className={`px-4 py-2 rounded-full text-[13px] font-[500] transition-all cursor-pointer border ${
               activeTab === 'browse'
-                ? 'bg-[#000000] text-white shadow-sm font-[600]'
-                : 'bg-[#EAEAEA] dark:bg-slate-800 text-[#3A3C40] dark:text-slate-300 hover:text-[#000000]'
+                ? 'bg-[#000000] text-white border-transparent shadow-sm font-[600]'
+                : 'bg-white dark:bg-slate-800 border-black/[0.08] dark:border-white/10 text-[#3A3C40] dark:text-slate-300 hover:text-[#000000]'
             }`}
           >
             Browse Verified Sponsors ({filteredSponsors.length})
@@ -105,10 +105,10 @@ export default function Sponsorship({ requestsSent, onSendRequest, showToast, us
 
           <button
             onClick={() => setActiveTab('my-requests')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-[500] transition-all cursor-pointer border-none ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-[500] transition-all cursor-pointer border ${
               activeTab === 'my-requests'
-                ? 'bg-[#000000] text-white shadow-sm font-[600]'
-                : 'bg-[#EAEAEA] dark:bg-slate-800 text-[#3A3C40] dark:text-slate-300 hover:text-[#000000]'
+                ? 'bg-[#000000] text-white border-transparent shadow-sm font-[600]'
+                : 'bg-white dark:bg-slate-800 border-black/[0.08] dark:border-white/10 text-[#3A3C40] dark:text-slate-300 hover:text-[#000000]'
             }`}
           >
             <span>My Active Requests</span>
@@ -240,8 +240,8 @@ export default function Sponsorship({ requestsSent, onSendRequest, showToast, us
                         {sponsor.bio}
                       </p>
 
-                      {/* Featured Quote */}
-                      <div className="mt-3 p-2.5 rounded-[12px] bg-[#EAEAEA]/60 dark:bg-slate-800/50 italic text-[11.5px] text-[#3A3C40] dark:text-slate-300">
+                      {/* Featured Quote (NO GREY BG) */}
+                      <div className="mt-3 p-2.5 rounded-[12px] bg-[#FAF9F8] dark:bg-slate-800/50 border border-black/[0.04] dark:border-white/[0.04] italic text-[11.5px] text-[#3A3C40] dark:text-slate-300">
                         "{sponsor.featuredQuote}"
                       </div>
 
@@ -250,7 +250,7 @@ export default function Sponsorship({ requestsSent, onSendRequest, showToast, us
                         {sponsor.skills.slice(0, 4).map((skill, idx) => (
                           <span
                             key={idx}
-                            className="text-[10px] font-[500] px-2 py-0.5 rounded-md bg-[#EFEFEF] dark:bg-slate-800 text-[#3A3C40] dark:text-slate-300"
+                            className="text-[10px] font-[500] px-2 py-0.5 rounded-md bg-white dark:bg-slate-800 border border-black/[0.06] dark:border-white/[0.08] text-[#3A3C40] dark:text-slate-300 shadow-2xs"
                           >
                             {skill}
                           </span>
@@ -344,14 +344,14 @@ export default function Sponsorship({ requestsSent, onSendRequest, showToast, us
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                    <div className="p-3 rounded-[12px] bg-[#EAEAEA]/60 dark:bg-slate-800/50 space-y-1">
+                    <div className="p-3 rounded-[12px] bg-[#FAF9F8] dark:bg-slate-800/50 border border-black/[0.04] dark:border-white/[0.04] space-y-1">
                       <span className="text-[#5E6064] font-[600] uppercase text-[10px] tracking-wider">
                         Engagement Mode
                       </span>
                       <p className="font-[600] text-[#000000] dark:text-white">{req.mode}</p>
                     </div>
 
-                    <div className="p-3 rounded-[12px] bg-[#EAEAEA]/60 dark:bg-slate-800/50 space-y-1">
+                    <div className="p-3 rounded-[12px] bg-[#FAF9F8] dark:bg-slate-800/50 border border-black/[0.04] dark:border-white/[0.04] space-y-1">
                       <span className="text-[#5E6064] font-[600] uppercase text-[10px] tracking-wider">
                         Proposed Cadence
                       </span>
@@ -376,7 +376,7 @@ export default function Sponsorship({ requestsSent, onSendRequest, showToast, us
           <div className="w-full max-w-xl h-full bg-[#FFFFFF] dark:bg-slate-900 border-l border-black/[0.08] dark:border-white/[0.08] shadow-2xl flex flex-col justify-between overflow-y-auto">
             <div>
               {/* Header */}
-              <div className="p-6 border-b border-black/[0.06] dark:border-white/[0.08] flex items-start justify-between bg-[#EAEAEA]/30 dark:bg-slate-800/30">
+              <div className="p-6 border-b border-black/[0.06] dark:border-white/[0.08] flex items-start justify-between bg-[#FAF9F8] dark:bg-slate-800/40">
                 <div className="flex items-center gap-4">
                   <img
                     src={selectedSponsor.avatar}

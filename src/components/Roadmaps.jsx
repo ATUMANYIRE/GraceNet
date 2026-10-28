@@ -69,8 +69,8 @@ export default function Roadmaps({ completedMilestones, onToggleMilestone, showT
 
   return (
     <div className="space-y-8 font-sans">
-      {/* Top Banner */}
-      <div className="rounded-[16px] bg-[#EAEAEA] dark:bg-slate-900 border border-black/[0.06] dark:border-white/[0.08] p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      {/* Top Banner (Pure white card - NO GREY BG) */}
+      <div className="rounded-[16px] bg-white dark:bg-slate-900 border border-black/[0.08] dark:border-white/[0.08] p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
         <div>
           <span className="text-xs font-[600] uppercase tracking-wider text-[#7A5CF0]">
             Grace Hopper Engineering Tracks
@@ -113,7 +113,7 @@ export default function Roadmaps({ completedMilestones, onToggleMilestone, showT
               <div>
                 <div className="flex items-center justify-between mb-2.5">
                   <div className={`p-2 rounded-[10px] ${
-                    isSelected ? 'bg-[#000000] text-white dark:bg-white dark:text-black' : 'bg-[#EAEAEA] dark:bg-slate-800 text-[#3A3C40] dark:text-slate-400'
+                    isSelected ? 'bg-[#000000] text-white dark:bg-white dark:text-black' : 'bg-slate-100 dark:bg-slate-800 text-[#3A3C40] dark:text-slate-400'
                   }`}>
                     {getTrackIcon(track.icon)}
                   </div>
@@ -132,7 +132,7 @@ export default function Roadmaps({ completedMilestones, onToggleMilestone, showT
 
               {/* Progress mini-bar */}
               <div className="mt-3 pt-2.5 border-t border-black/[0.06] dark:border-white/[0.08]">
-                <div className="w-full h-1.5 bg-[#EAEAEA] dark:bg-slate-800 rounded-full overflow-hidden">
+                <div className="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                   <div
                     className="h-full bg-[#7A5CF0] rounded-full transition-all duration-500"
                     style={{ width: `${pct}%` }}
@@ -166,7 +166,7 @@ export default function Roadmaps({ completedMilestones, onToggleMilestone, showT
           <div className="flex items-center gap-3">
             <button
               onClick={handleExportPlan}
-              className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-[500] bg-[#EFEFEF] hover:bg-[#E5E5E5] dark:bg-slate-800 text-[#3A3C40] dark:text-white transition-all cursor-pointer border-none"
+              className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-[500] bg-white dark:bg-slate-800 border border-black/[0.08] dark:border-white/10 hover:bg-slate-50 text-[#3A3C40] dark:text-white transition-all cursor-pointer shadow-2xs"
             >
               {copiedPlan ? (
                 <>
@@ -195,7 +195,7 @@ export default function Roadmaps({ completedMilestones, onToggleMilestone, showT
             </span>
           </div>
 
-          <div className="w-full h-3.5 bg-[#EAEAEA] dark:bg-slate-800 rounded-full overflow-hidden p-0.5">
+          <div className="w-full h-3.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden p-0.5">
             <div
               className="h-full bg-gradient-to-r from-[#7A5CF0] to-[#F8533F] rounded-full transition-all duration-500 shadow-sm"
               style={{ width: `${trackProgressPct}%` }}
@@ -242,7 +242,7 @@ export default function Roadmaps({ completedMilestones, onToggleMilestone, showT
                         }`}>
                           {milestone.title}
                         </h4>
-                        <span className="text-[10px] font-[500] px-2 py-0.5 rounded-full bg-[#EAEAEA] dark:bg-slate-700 text-[#3A3C40] dark:text-slate-300">
+                        <span className="text-[10px] font-[500] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-700 text-[#3A3C40] dark:text-slate-300">
                           {milestone.category}
                         </span>
                       </div>
@@ -261,7 +261,7 @@ export default function Roadmaps({ completedMilestones, onToggleMilestone, showT
                       {milestone.summary}
                     </p>
 
-                    <div className="p-3 rounded-[8px] bg-[#EAEAEA]/50 dark:bg-slate-900 border border-black/[0.04] dark:border-slate-800 text-xs text-[#3A3C40] dark:text-slate-300">
+                    <div className="p-3 rounded-[8px] bg-[#FAF9F8] dark:bg-slate-900 border border-black/[0.04] dark:border-slate-800 text-xs text-[#3A3C40] dark:text-slate-300">
                       <strong className="text-[#7A5CF0]">Key Takeaway: </strong>
                       {milestone.keyTakeaway}
                     </div>

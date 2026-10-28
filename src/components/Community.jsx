@@ -153,7 +153,7 @@ export default function Community({ posts, onAddPost, onToggleLike, onAddReply, 
             onClick={() => setSortBy('trending')}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-[500] cursor-pointer border ${
               sortBy === 'trending'
-                ? 'bg-[#EAEAEA] text-[#000000] border-transparent font-[600]'
+                ? 'bg-[#000000] text-white border-transparent font-[600]'
                 : 'bg-transparent text-[#5E6064] border-transparent'
             }`}
           >
@@ -224,7 +224,7 @@ export default function Community({ posts, onAddPost, onToggleLike, onAddReply, 
                 </div>
 
                 <div className="flex items-center gap-1.5">
-                  <span className="text-[11px] font-[600] px-3 py-1 rounded-full bg-[#EAEAEA] dark:bg-slate-800 text-[#3A3C40] dark:text-slate-300">
+                  <span className="text-[11px] font-[600] px-3 py-1 rounded-full bg-[#FAF9F8] dark:bg-slate-800 text-[#3A3C40] dark:text-slate-300 border border-black/[0.06] dark:border-white/[0.08]">
                     {post.category}
                   </span>
                   <button
@@ -254,7 +254,7 @@ export default function Community({ posts, onAddPost, onToggleLike, onAddReply, 
                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-[500] transition-all cursor-pointer border ${
                       post.isLiked
                         ? 'bg-[#FFEBE8] text-[#F8533F] border-[#F8533F]/30'
-                        : 'bg-[#EAEAEA]/60 text-[#3A3C40] border-transparent'
+                        : 'bg-white dark:bg-slate-800 text-[#3A3C40] dark:text-slate-300 border-black/[0.08] dark:border-white/10'
                     }`}
                   >
                     <Heart className={`w-3.5 h-3.5 ${post.isLiked ? 'fill-current text-[#F8533F]' : ''}`} />
@@ -263,7 +263,7 @@ export default function Community({ posts, onAddPost, onToggleLike, onAddReply, 
 
                   <button
                     onClick={() => setActiveReplyPostId(isRepliesOpen ? null : post.id)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-[500] bg-[#EAEAEA]/60 text-[#3A3C40] border-none cursor-pointer"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-[500] bg-white dark:bg-slate-800 text-[#3A3C40] dark:text-slate-300 border border-black/[0.08] dark:border-white/10 cursor-pointer"
                   >
                     <MessageCircle className="w-3.5 h-3.5 text-[#7A5CF0]" />
                     <span>{post.replies?.length || 0} Replies</span>
@@ -288,7 +288,7 @@ export default function Community({ posts, onAddPost, onToggleLike, onAddReply, 
                   {post.replies?.map((reply) => (
                     <div
                       key={reply.id}
-                      className="p-3 rounded-[12px] bg-[#EAEAEA]/50 dark:bg-slate-800/50 space-y-1 text-xs"
+                      className="p-3 rounded-[12px] bg-[#FAF9F8] dark:bg-slate-800/50 border border-black/[0.04] dark:border-white/[0.04] space-y-1 text-xs"
                     >
                       <div className="flex items-center justify-between">
                         <span className="font-[600] text-[#000000] dark:text-white">{reply.author.name}</span>
@@ -340,7 +340,7 @@ export default function Community({ posts, onAddPost, onToggleLike, onAddReply, 
             </div>
 
             <form onSubmit={handleCreatePost} className="space-y-4 text-xs">
-              <div className="p-3.5 rounded-[12px] bg-[#EAEAEA]/50 flex items-center justify-between">
+              <div className="p-3.5 rounded-[12px] bg-[#FAF9F8] dark:bg-slate-800/60 border border-black/[0.06] dark:border-white/[0.08] flex items-center justify-between">
                 <div>
                   <div className="font-[600] text-[#000000] dark:text-white">Post Anonymously</div>
                   <p className="text-[11px] text-[#5E6064]">Hides name as Incognito Technologist.</p>

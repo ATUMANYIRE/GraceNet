@@ -99,8 +99,8 @@ export default function PayEquity({ showToast, userProfile }) {
 
   return (
     <div className="space-y-8 font-sans">
-      {/* Top Banner */}
-      <div className="rounded-[16px] bg-[#EAEAEA] dark:bg-slate-900 border border-black/[0.06] dark:border-white/[0.08] p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      {/* Top Banner (Pure white with hairline border - NO GREY BG) */}
+      <div className="rounded-[16px] bg-white dark:bg-slate-900 border border-black/[0.08] dark:border-white/[0.08] p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
         <div>
           <span className="text-xs font-[600] uppercase tracking-wider text-[#7A5CF0]">
             Audited Compensation Benchmarks • 2026 Calibrations
@@ -215,7 +215,7 @@ export default function PayEquity({ showToast, userProfile }) {
                 step="5000"
                 value={userSalary}
                 onChange={(e) => setUserSalary(Number(e.target.value))}
-                className="w-full h-2 bg-[#EAEAEA] dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-[#F8533F]"
+                className="w-full h-2 bg-slate-100 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-[#F8533F]"
               />
 
               <div className="flex justify-between text-[10px] text-[#5E6064] dark:text-slate-400 mt-1 font-mono">
@@ -302,7 +302,7 @@ export default function PayEquity({ showToast, userProfile }) {
                     ${userSalary.toLocaleString()}
                   </span>
                 </div>
-                <div className="w-full h-3.5 bg-[#EAEAEA] dark:bg-slate-800 rounded-full overflow-hidden p-0.5">
+                <div className="w-full h-3.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden p-0.5">
                   <div
                     className="h-full bg-[#000000] dark:bg-white rounded-full transition-all duration-500"
                     style={{ width: `${getWidthPct(userSalary)}%` }}
@@ -321,7 +321,7 @@ export default function PayEquity({ showToast, userProfile }) {
                     ${benchmark.auditedFemaleMedian.toLocaleString()}
                   </span>
                 </div>
-                <div className="w-full h-3 bg-[#EAEAEA] dark:bg-slate-800 rounded-full overflow-hidden p-0.5">
+                <div className="w-full h-3 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden p-0.5">
                   <div
                     className="h-full bg-[#F8533F] rounded-full transition-all duration-500 opacity-90"
                     style={{ width: `${getWidthPct(benchmark.auditedFemaleMedian)}%` }}
@@ -340,7 +340,7 @@ export default function PayEquity({ showToast, userProfile }) {
                     ${benchmark.auditedMarketMedian.toLocaleString()}
                   </span>
                 </div>
-                <div className="w-full h-3.5 bg-[#EAEAEA] dark:bg-slate-800 rounded-full overflow-hidden p-0.5">
+                <div className="w-full h-3.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden p-0.5">
                   <div
                     className="h-full bg-[#7A5CF0] rounded-full transition-all duration-500"
                     style={{ width: `${getWidthPct(benchmark.auditedMarketMedian)}%` }}
@@ -359,7 +359,7 @@ export default function PayEquity({ showToast, userProfile }) {
                     ${benchmark.percentile75.toLocaleString()}
                   </span>
                 </div>
-                <div className="w-full h-2.5 bg-[#EAEAEA] dark:bg-slate-800 rounded-full overflow-hidden p-0.5">
+                <div className="w-full h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden p-0.5">
                   <div
                     className="h-full bg-slate-400 rounded-full transition-all duration-500 opacity-80"
                     style={{ width: `${getWidthPct(benchmark.percentile75)}%` }}
@@ -431,8 +431,8 @@ export default function PayEquity({ showToast, userProfile }) {
           ))}
         </div>
 
-        {/* Script Box */}
-        <div className="rounded-[12px] bg-[#EAEAEA]/40 dark:bg-slate-800/60 border border-black/[0.06] dark:border-white/[0.08] p-6 space-y-3">
+        {/* Script Box (NO GREY BG) */}
+        <div className="rounded-[12px] bg-[#FAF9F8] dark:bg-slate-800/60 border border-black/[0.08] dark:border-white/[0.08] p-6 space-y-3 shadow-2xs">
           <pre className="font-sans text-xs sm:text-sm text-[#000000] dark:text-slate-200 whitespace-pre-wrap leading-relaxed select-text font-normal">
             {renderedScript}
           </pre>

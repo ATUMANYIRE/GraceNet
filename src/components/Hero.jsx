@@ -230,17 +230,17 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
               </div>
             </div>
 
-            {/* PANEL 2: WAGE TRANSPARENCY METRIC PANEL (425.5u / 4 cols): #EAEAEA with white 339x316u card */}
-            <div className="md:col-span-4 h-full min-h-[380px] rounded-[16px] bg-[#EAEAEA] dark:bg-slate-800 p-5 flex items-center justify-center shadow-sm">
-              <div className="w-full max-w-[339px] h-[316px] bg-[#FFFFFF] dark:bg-slate-900 rounded-[16px] p-6 shadow-[0_8px_24px_rgba(0,0,0,0.04)] flex flex-col justify-between">
-                {/* Header: Pay Parity Reached + › button with grey disc on hover */}
+            {/* PANEL 2: WAGE TRANSPARENCY METRIC PANEL (Pure white card with hairline border - NO GREY BG) */}
+            <div className="md:col-span-4 h-full min-h-[380px] rounded-[16px] bg-white dark:bg-slate-900 border border-black/[0.06] dark:border-white/10 p-5 flex items-center justify-center shadow-sm">
+              <div className="w-full max-w-[339px] h-[316px] bg-[#FAF9F8] dark:bg-slate-800/70 rounded-[16px] p-6 border border-black/[0.04] dark:border-white/[0.06] shadow-xs flex flex-col justify-between">
+                {/* Header: Pay Parity Reached + › button with soft hover */}
                 <div className="flex items-center justify-between">
                   <span className="text-[14px] font-[500] text-[#3A3C40] dark:text-slate-300 tracking-[-0.01em]">
                     Pay Parity Reached
                   </span>
                   <button
                     onClick={onExplorePayEquity}
-                    className="w-[28px] h-[28px] rounded-full flex items-center justify-center text-[#5E6064] hover:text-[#000000] hover:bg-[#E2E2E2] dark:hover:bg-slate-800 transition-colors cursor-pointer border-none bg-transparent"
+                    className="w-[28px] h-[28px] rounded-full flex items-center justify-center text-[#5E6064] hover:text-[#000000] dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.06] transition-colors cursor-pointer border-none bg-transparent"
                     aria-label="Open Wage Transparency Tool"
                   >
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
