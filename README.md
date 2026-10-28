@@ -1,140 +1,113 @@
-# 🌟 GraceNet — Women in Tech Career Sponsorship & Pay Equity Platform
-> **Built for the Catalyst California Conference (C3) Hackathon**  
-> *Empowering women in technology through executive career sponsorship, audited pay transparency, and peer safe spaces.*
+# 🩺 Corvana AI — Clinical Front Desk AI Copilot
+> **Single-file, one-screen landing hero for Corvana AI**  
+> *The AI Copilot Made For Calmer Clinical Coordination.*
 
 ---
 
-## 💡 Overview & Problem Statement
-The technology industry frequently provides early-career women with **mentorship** (advice), but systemic disparities persist because of a lack of **sponsorship** (active executive advocacy in closed-door promotion calibrations). Furthermore, opaque corporate compensation bands perpetuate an 8% to 14% tech gender wage gap, while women navigating microaggressions or workplace retaliation lack confidential resources.
+## 💎 Branding & Identity System
 
-**GraceNet** changes the paradigm by honoring **Rear Admiral Grace Hopper** and delivering four pillars of systemic empowerment:
-1. **Executive Sponsorship Matcher**: Connecting engineers directly with leaders at Google, Meta, NASA, OpenAI, and Stripe who actively advocate in calibration rooms.
-2. **Audited Wage Transparency Engine**: Interactive pay parity calculator comparing compensation against audited industry percentiles and California Equal Pay Act standards, with custom counter-offer scripts.
-3. **Grace Hopper Career Roadmaps**: Dynamic skill trackers with live completion percentage, milestone checklists, and unlocked achievement badges.
-4. **Community & Safe Space Forum**: Harassment-free forum supporting verified anonymous posting (`Incognito Technologist`) and an instant **Quick Safe Exit** panic button.
-
----
-
-## 🎨 Design Tokens & Aesthetic
-- **Primary Backgrounds**: `#FDFBF7` (Warm Porcelain) & `#0F172A` (Dark Slate Mode Toggle)
-- **Brand Colors**:
-  - Deep Violet: `#6D28D9`
-  - Rose Quartz: `#F43F5E`
-  - Emerald Accent: `#10B981`
-  - Soft Amethyst: `#EDE9FE`
-- **Typography**: Clean, accessible sans-serif typography (`Inter` / `Plus Jakarta Sans`) with high-contrast text and rounded cards (`rounded-2xl` / `rounded-3xl`).
+Corvana AI is built with a cohesive, modern medical-technology aesthetic:
+- **Logo Mark**: A precision blue-violet gradient geometric **"V" mark** (`#3B82F6` → `#6366F1` → `#7A5CF0`) symbolizing velocity, care, and precision AI.
+- **Brand Typography**: Tight neo-grotesk (`Inter` / `Inter Display` style) for all interface elements. The headline is 500 weight with tight `-0.045em` tracking.
+- **Color Palette**:
+  - **Page**: Pure White `#FEFEFE`
+  - **Ink**: Deep Black `#000000`
+  - **Nav Ink**: Muted Slate `#3A3C40`
+  - **Muted**: Neutral Grey `#5E6064`
+  - **Primary Accent**: Energetic Coral `#F8533F`
+  - **Announcement Accent**: Coral `#FA6E5C`
+  - **Data Violet**: Violet `#7A5CF0`
+  - **Chip Lavender**: Soft Lavender `#F1EDFE` → `#E8E2FD` with violet ink `#6A4CEB`
 
 ---
 
-## 🚀 Application Architecture & Screen Hierarchy
+## 📐 Layout & Mathematical Scaling
 
-### 1. Navigation Bar & Global Utilities
-- **Brand Logo**: GraceNet with a glowing purple Sparkle icon and C3 Hackathon badge.
-- **Navigation Tabs**:
-  - `Sponsorship Matcher`
-  - `Wage Transparency`
-  - `Career Roadmaps`
-  - `Community Hub`
-- **Action Buttons**:
-  - **Join Network Modal**: Profile builder for Mentees, Mentors, and Executive Sponsors.
-  - **Safety & Rights Hub**: One-click drawer with California Labor Code § 1197.5 guidance, EEOC procedures, Equal Rights Advocates hotline, and a **Quick Safe Exit** panic button.
-  - **Theme Toggle**: Real-time switch between Warm Porcelain and Dark Slate modes.
-
-### 2. Tab 1: Sponsorship & Mentorship Matcher (`/sponsors`)
-- Search by name, company, technical skill, or title.
-- Filter pills: `All`, `Software Engineering`, `AI/ML`, `Product`, `Leadership`.
-- Sponsor cards showcasing:
-  - Avatar, Title, Company (Google Cloud, OpenAI, NASA JPL, Stripe, Adobe, Cloudflare, Meta, Anthropic).
-  - Availability pill (e.g. *Open (2 Sponsorship Slots)*).
-  - Verified impact counter: *Mentees Promoted* count and rating.
-  - Featured wisdom quote.
-- **Interactive Request Sponsorship Drawer**:
-  - Select engagement mode (Executive Sponsorship vs Technical Mentorship vs Salary Negotiation Coaching).
-  - Multi-select priority focus deliverables (e.g., *Staff+ Promotion Dossier*, *Closed-Door Calibration Strategy*).
-  - **AI Smart Pitch Generator**: Auto-generates customized pitch letters.
-  - Live **My Active Requests** tracker displaying submission history and review status.
-
-### 3. Tab 2: Wage Transparency & Pay Equity Tool (`/pay-equity`)
-- **Interactive Calibration Inputs**:
-  - Seniority Level (Junior, Mid-Level, Senior, Lead/Staff, Principal/Director).
-  - Technical Discipline (Software Engineering, Machine Learning & AI, Product Management, UI/UX Design, Cloud/DevOps).
-  - Metro Location & Cost-of-Living Tier (SF Bay Area, NYC, Seattle, Tier-2 Hubs, US Nationwide Remote).
-  - Current Base Salary (numeric input + live slider).
-- **Live Visual Benchmark Bar**:
-  - Displays user salary alongside Female Tech Median, Full Market Parity Target, 75th Percentile, and 90th Percentile.
-- **Pay Gap Analysis Badge**:
-  - Calculates annual disparity (`-$31,000 / year (-16%)`) and 10-year compounding lost earnings.
-- **Dynamic Negotiation Scripts**:
-  - Auto-generated counter-offer scripts for *Annual Reviews*, *New Job Offers*, *Promotions*, and *Retention Refresh Grants*.
-  - 1-click **Copy Script to Clipboard** with toast confirmation.
-  - California Labor Code § 1197.5 statutory references.
-- **Peer Wage Submissions**:
-  - Real crowd-sourced community compensation data with an anonymous submission form.
-
-### 4. Tab 3: Grace Hopper Skill Roadmaps (`/roadmaps`)
-- **Interactive Progress Tracker**: Live progress percentage (0% to 100%) calculated dynamically across active milestones.
-- **Four Specialized Technical Tracks**:
-  1. *Full-Stack React & Cloud Architecture*
-  2. *AI Systems & Applied Machine Learning*
-  3. *Open Source Contributing & GHC Leadership*
-  4. *Staff+ Technical Track & Executive Presence*
-- **Milestone Checklists**:
-  - Difficulty tags, estimated study hours, and actionable technical takeaways.
-  - Recommended learning resources & documentation links.
-- **Achievement Badges Showcase**: Dynamically unlocks badges (*First Step Forward*, *Momentum Builder*, *Grace Hopper Visionary*, *Staff+ Luminary*).
-- **Export Career Plan**: 1-click export of career dossier to share with sponsors.
-
-### 5. Tab 4: Community & Safe Space Forum (`/community`)
-- **Topic Filters**: `Salary Transparency`, `GHC Networking`, `Workplace Safety`, `Microaggressions`, `Executive Sponsorship`.
-- **Search & Sort**: Filter by query and toggle between *Trending* and *Latest*.
-- **Interactive Create Post Modal**:
-  - **Anonymous Posting Toggle**: Post safely as *Incognito Technologist* with identity protection.
-- **Engagement Features**:
-  - Live upvote/like counter with heart animations.
-  - Threaded replies with inline reply composer.
-  - Bookmarking and discussion link sharing.
+The composition is authored in reference px of a **1514×1039** artboard:
+```css
+--u: min(100cqw / 1514, max(100svh / 1039, .68px));
+```
+- **Desktop (≥1024px)**: The entire composition locks within the viewport centered both horizontally and vertically, scaling continuously without scrollbars.
+- **Mobile & Portrait (<1024px)**: The page re-flows into a locked screen with real pixel dimensions and a horizontal swipeable panel strip with synchronized active pagination dots.
 
 ---
 
-## 🛠️ Technology Stack
-- **Framework**: React 19 + Vite
-- **Styling**: Tailwind CSS v3.4 (with custom theme tokens, dark mode, and responsive layout)
-- **Icons**: Lucide-React
-- **State Architecture**: Pure client-side React state (`useState`, `useEffect`) with zero external backend dependencies needed.
-- **Data**: Rich, embedded mock datasets modeled from real tech industry equity benchmarks.
+## 🔬 Core Components & Visual Architecture
+
+### 1. Announcement Bar
+- **Dimensions**: Full width, 38px tall in coral `#FA6E5C`.
+- **Content**: "30% off for all new clinics." with an underlined "CLAIM THE DEAL NOW" link.
+
+### 2. Navigation Bar
+- **Dimensions**: Full width, 68px tall, white with a hairline bottom border (`rgba(0,0,0,0.06)`).
+- **Left**: Blue-violet gradient "V" logo mark and "Corvana AI" brand title.
+- **Centre**: `Care` (current, bold 600 weight) · `Features` · `Clinics` · `Customers` · `Careers`.
+- **Right**: Light-grey "Watch a Demo" pill button.
+
+### 3. Headline & Subline
+- **Headline**: Two centred lines in clip masks (72u, 500 weight, `-0.045em` tracking):
+  - *"The AI Copilot Made For Calmer"*
+  - *"Clinical Coordination"*
+- **Subline**: 22.4u font size / 31u line-height in muted slate (`#5E6064`):
+  - *"From first check-in to aftercare reminders, take over routine tasks and paperwork while giving every patient a warm welcome."*
+
+### 4. Heartbeat Trace & Main CTA
+- **Main Button**: A 233×71.5u frosted glass ring (translucent white `rgba(255,255,255,0.72)` with 14px backdrop blur and soft shadow) holding a black pill button: *"Start Your Trial"* (22u). Lifts 1px on hover with an elevated shadow.
+- **Pixel ECG Trace**: Runs edge-to-edge behind the button across the full 1514u width:
+  - **Pixels**: 6.2u squares on a 9.6u grid, coral `#F8533F` with lighter `#FB7565` baseline dots.
+  - **Position**: Baseline sits 9u below the button centre.
+  - **Cardiac Spikes**: Four heartbeats located at −462u, −225u, +231u, and +468u from the centre. Each features a P bump, Q dip, tall R spike (≈60u up staircase), S drop (≈47u down staircase), and T bump.
+  - **Monitor Sweep**: 3.2s looping linear animation delayed by `--t` = x / 1514, sweeping a glowing bright monitor head left to right while pixels settle to 58% opacity.
+
+### 5. Strip of Three Tall Rounded Panels (1313.5 × 429.5u)
+- **Panel 1: Patient Panel (436.5u)**
+  - Smooth mint-green to pale sky-blue studio gradient (`#a4e6ce` → `#bde8f5`).
+  - Still fallback image of a laughing older woman with silver wavy hair, gold hoops, and a coral knit sweater.
+  - 5-second seamless looping video overlaid at 107.78% width, left −3.89%, full height, fading in automatically once playback initiates.
+  - Corvana AI Front Desk Copilot verification badge.
+- **Panel 2: Metric Panel (425.5u)**
+  - Neutral `#EAEAEA` background framing a white 339×316u card.
+  - *"Check-ins Completed"* with an interactive `›` chevron button (gets grey hover disc).
+  - Stat: **18.7K** (50u, 600 weight) + lavender chip **+21.3%** *"vs Prior Week"*.
+  - SVG chart with violet `#7A5CF0` and coral `#F8533F` rising trajectory lines, filled coral dot with soft ring, ringed violet dot, grey vertical drop line, and bottom tick marks.
+- **Panel 3: Peony Panel (436.5u)**
+  - High-resolution macro of ruffled coral peony petals.
+  - Frosted 292×241u **Patient Trust Rating** card:
+    - **98%** (44.5u, 400 weight).
+    - Symmetric violet bar-wave meter opening smoothly from the centre on entrance.
+    - Sentiment: *"Wonderful"* with 5 gold stars.
+  - White 66.5u **Avatars Card**:
+    - Three overlapping rounded clinician photos.
+    - **62K+** Clinicians Onboarded.
 
 ---
 
-## 🏁 Getting Started & Local Development
+## 🎬 Motion Choreography (Web Animations API)
+- Behind an `entry-pending` class with an automatic failsafe timer:
+  1. Announcement bar, logo, and nav links rise in (55ms stagger).
+  2. Headline lines wipe up out of their clip masks, followed by the subline.
+  3. Glass ring fades in and the black CTA button rises.
+  4. Metric card and right peony stack rise into place.
+  5. Chart lines draw in with `stroke-dashoffset`, dots pop with elastic scaling, and the bar-wave meter expands outward.
+- **Accessibility**: Honors `prefers-reduced-motion: reduce` by bypassing entrance timelines, video autoplay, and sweeps.
 
-### Prerequisites
-- Node.js (v18+ recommended, verified on v24)
-- npm or pnpm
+---
 
-### Installation
+## 💻 Tech Stack & Zero Build Step
+- **Plain HTML5, CSS3, and Vanilla JavaScript**: Zero frameworks, zero external compile dependencies.
+- **Double-click ready**: Open `index.html` directly in any web browser, or serve through any static host.
+- Also compatible with Vite for local development (`npm run dev` / `npm run build`).
+
+---
+
+## 🚀 Local Development & Preview
+
 ```bash
-# Clone or navigate to the project directory
+# Clone or navigate to the directory
 cd E:\Projects\GraceNet
 
-# Install dependencies (already installed in workspace)
-npm install
-
-# Start the Vite development server
+# Start the local server
 npm run dev
 ```
 
-### Production Build
-```bash
-# Build the production bundle
-npm run build
-
-# Preview the production build locally
-npm run preview
-```
-
----
-
-## 🏆 C3 Hackathon Highlights
-- **Human-Centered UI/UX**: Designed with warm, welcoming porcelain tones and soft amethysts, transitioning seamlessly to dark slate.
-- **Trauma-Informed & Safe**: Features a panic exit button and anonymous identity protection to shield users in hostile work environments.
-- **Action-Oriented**: Does not just report the wage gap—gives women the scripts, sponsors, and roadmaps to close it.
+Visit [http://localhost:5173/](http://localhost:5173/) to view the live Corvana AI hero.
