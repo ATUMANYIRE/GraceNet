@@ -11,7 +11,8 @@ import {
   Share2, 
   Check, 
   BookOpen, 
-  TrendingUp
+  TrendingUp,
+  Sparkles
 } from 'lucide-react';
 import { ROADMAP_TRACKS, ACHIEVEMENT_BADGES } from '../data/roadmapsData';
 
@@ -34,7 +35,7 @@ export default function Roadmaps({ completedMilestones, onToggleMilestone, showT
     onToggleMilestone(milestone.id);
 
     if (isNowDone) {
-      showToast(`Milestone completed: "${milestone.title}"! 🎉`, 'success');
+      showToast(`Milestone completed: "${milestone.title}"! 🎉`, 'info');
     }
   };
 
@@ -49,11 +50,11 @@ export default function Roadmaps({ completedMilestones, onToggleMilestone, showT
         .filter(m => !completedMilestones.includes(m.id))
         .map(m => `⬜ [${m.difficulty}] ${m.title} (~${m.estimatedHours})`)
         .join('\n') +
-      `\n\nGenerated via GraceNet`;
+      `\n\nGenerated via GraceNet • C3 Hackathon`;
 
     navigator.clipboard.writeText(summary);
     setCopiedPlan(true);
-    showToast('Career roadmap copied to clipboard!', 'success');
+    showToast('✨ Career roadmap dossier copied to clipboard!', 'info');
     setTimeout(() => setCopiedPlan(false), 3000);
   };
 
@@ -68,8 +69,32 @@ export default function Roadmaps({ completedMilestones, onToggleMilestone, showT
 
   return (
     <div className="space-y-8 font-sans">
-      {/* Track Selector Navigation */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* Top Banner */}
+      <div className="rounded-[16px] bg-[#EAEAEA] dark:bg-slate-900 border border-black/[0.06] dark:border-white/[0.08] p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <span className="text-xs font-[600] uppercase tracking-wider text-[#7A5CF0]">
+            Grace Hopper Engineering Tracks
+          </span>
+          <h3 className="text-2xl font-[600] tracking-[-0.03em] text-[#000000] dark:text-white mt-1">
+            Career & Technical Skill Roadmaps
+          </h3>
+          <p className="text-xs sm:text-sm text-[#5E6064] dark:text-slate-300 mt-1 max-w-xl">
+            Structured step-by-step milestones curated by women engineering leaders. Track your progress toward Staff+, AI systems engineering, and open-source governance.
+          </p>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <div className="px-4 py-2 rounded-full bg-white dark:bg-slate-800 border border-black/[0.06] dark:border-white/[0.08] shadow-2xs text-center">
+            <span className="text-[10px] text-[#5E6064] uppercase font-[600] block">Overall Progress</span>
+            <span className="text-sm font-[600] text-[#7A5CF0] font-mono">
+              {totalCompletedAll} of {totalAllMilestones} ({overallProgressPct}%)
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Track Selector Navigation (5 Tracks responsive grid) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
         {ROADMAP_TRACKS.map((track) => {
           const isSelected = selectedTrackId === track.id;
           const completedCount = track.milestones.filter(m => completedMilestones.includes(m.id)).length;
@@ -79,16 +104,16 @@ export default function Roadmaps({ completedMilestones, onToggleMilestone, showT
             <button
               key={track.id}
               onClick={() => setSelectedTrackId(track.id)}
-              className={`p-5 rounded-[16px] border text-left flex flex-col justify-between transition-all duration-200 cursor-pointer ${
+              className={`p-4 rounded-[16px] border text-left flex flex-col justify-between transition-all duration-200 cursor-pointer ${
                 isSelected
-                  ? 'bg-[#FFFFFF] dark:bg-slate-900 border-[#000000] dark:border-white shadow-sm'
+                  ? 'bg-[#FFFFFF] dark:bg-slate-900 border-[#000000] dark:border-white shadow-sm ring-1 ring-black/10'
                   : 'bg-[#FFFFFF] dark:bg-slate-900 border-black/[0.06] dark:border-white/[0.08] hover:border-black/[0.2]'
               }`}
             >
               <div>
-                <div className="flex items-center justify-between mb-3">
-                  <div className={`p-2.5 rounded-[12px] ${
-                    isSelected ? 'bg-[#000000] text-white' : 'bg-[#EAEAEA] dark:bg-slate-800 text-[#3A3C40] dark:text-slate-400'
+                <div className="flex items-center justify-between mb-2.5">
+                  <div className={`p-2 rounded-[10px] ${
+                    isSelected ? 'bg-[#000000] text-white dark:bg-white dark:text-black' : 'bg-[#EAEAEA] dark:bg-slate-800 text-[#3A3C40] dark:text-slate-400'
                   }`}>
                     {getTrackIcon(track.icon)}
                   </div>
@@ -97,16 +122,16 @@ export default function Roadmaps({ completedMilestones, onToggleMilestone, showT
                   </span>
                 </div>
 
-                <h3 className="text-sm font-[600] text-[#000000] dark:text-white">
+                <h4 className="text-xs sm:text-[13px] font-[600] text-[#000000] dark:text-white leading-snug">
                   {track.title}
-                </h3>
-                <p className="text-[11px] text-[#5E6064] mt-1 line-clamp-2 leading-relaxed">
+                </h4>
+                <p className="text-[10.5px] text-[#5E6064] dark:text-slate-400 mt-1 line-clamp-2 leading-relaxed">
                   {track.description}
                 </p>
               </div>
 
               {/* Progress mini-bar */}
-              <div className="mt-4 pt-3 border-t border-black/[0.06] dark:border-white/[0.08]">
+              <div className="mt-3 pt-2.5 border-t border-black/[0.06] dark:border-white/[0.08]">
                 <div className="w-full h-1.5 bg-[#EAEAEA] dark:bg-slate-800 rounded-full overflow-hidden">
                   <div
                     className="h-full bg-[#7A5CF0] rounded-full transition-all duration-500"
@@ -126,10 +151,10 @@ export default function Roadmaps({ completedMilestones, onToggleMilestone, showT
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-black/[0.06] dark:border-white/[0.08]">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <span className="text-xs font-[600] uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-gradient-to-r from-[#F1EDFE] to-[#E8E2FD] text-[#6A4CEB]">
+              <span className="text-xs font-[600] uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-gradient-to-r from-[#F1EDFE] to-[#E8E2FD] text-[#6A4CEB] dark:bg-purple-950 dark:text-purple-300">
                 {currentTrack.badgeLabel}
               </span>
-              <span className="text-xs text-[#5E6064]">
+              <span className="text-xs text-[#5E6064] dark:text-slate-400">
                 {completedInTrack} of {totalTrackMilestones} milestones completed
               </span>
             </div>
@@ -145,7 +170,7 @@ export default function Roadmaps({ completedMilestones, onToggleMilestone, showT
             >
               {copiedPlan ? (
                 <>
-                  <Check className="w-4 h-4 text-emerald-500" />
+                  <Check className="w-4 h-4 text-[#7A5CF0]" />
                   <span>Dossier Copied!</span>
                 </>
               ) : (
@@ -178,7 +203,7 @@ export default function Roadmaps({ completedMilestones, onToggleMilestone, showT
           </div>
         </div>
 
-        {/* Milestone Checklist */}
+        {/* Milestone Checklist (NO GREEN - Corvana violet/lavender styling) */}
         <div className="space-y-3 pt-4">
           {currentTrack.milestones.map((milestone) => {
             const isDone = completedMilestones.includes(milestone.id);
@@ -186,9 +211,9 @@ export default function Roadmaps({ completedMilestones, onToggleMilestone, showT
             return (
               <div
                 key={milestone.id}
-                className={`p-5 rounded-[12px] border transition-all duration-200 ${
+                className={`p-5 rounded-[14px] border transition-all duration-200 ${
                   isDone
-                    ? 'bg-emerald-50/40 dark:bg-emerald-950/20 border-emerald-300 dark:border-emerald-800/80 shadow-sm'
+                    ? 'bg-[#F1EDFE]/60 dark:bg-purple-950/20 border-[#7A5CF0]/30 shadow-2xs'
                     : 'bg-[#FFFFFF] dark:bg-slate-800/40 border-black/[0.06] dark:border-white/[0.08] hover:border-black/[0.15]'
                 }`}
               >
@@ -198,12 +223,12 @@ export default function Roadmaps({ completedMilestones, onToggleMilestone, showT
                     aria-label={isDone ? `Mark incomplete` : `Mark complete`}
                     className={`mt-1 shrink-0 p-1 rounded-xl transition-all cursor-pointer bg-transparent border-none ${
                       isDone 
-                        ? 'text-emerald-600 dark:text-emerald-400' 
+                        ? 'text-[#7A5CF0]' 
                         : 'text-slate-300 hover:text-[#7A5CF0]'
                     }`}
                   >
                     {isDone ? (
-                      <CheckCircle className="w-6 h-6 fill-emerald-100 dark:fill-emerald-950/60" />
+                      <CheckCircle className="w-6 h-6 fill-[#E8E2FD] dark:fill-purple-900/60" />
                     ) : (
                       <Circle className="w-6 h-6" />
                     )}
@@ -223,10 +248,10 @@ export default function Roadmaps({ completedMilestones, onToggleMilestone, showT
                       </div>
 
                       <div className="flex items-center gap-2 shrink-0">
-                        <span className="text-[11px] font-[500] px-2 py-0.5 rounded-full bg-[#F1EDFE] text-[#6A4CEB]">
+                        <span className="text-[11px] font-[500] px-2.5 py-0.5 rounded-full bg-[#F1EDFE] text-[#6A4CEB] dark:bg-purple-950 dark:text-purple-300">
                           {milestone.difficulty}
                         </span>
-                        <span className="text-[11px] font-mono text-[#5E6064]">
+                        <span className="text-[11px] font-mono text-[#5E6064] dark:text-slate-400">
                           ~{milestone.estimatedHours}
                         </span>
                       </div>
@@ -236,7 +261,7 @@ export default function Roadmaps({ completedMilestones, onToggleMilestone, showT
                       {milestone.summary}
                     </p>
 
-                    <div className="p-3 rounded-[8px] bg-[#EAEAEA]/40 dark:bg-slate-900 border border-black/[0.04] dark:border-slate-800 text-xs text-[#3A3C40] dark:text-slate-300">
+                    <div className="p-3 rounded-[8px] bg-[#EAEAEA]/50 dark:bg-slate-900 border border-black/[0.04] dark:border-slate-800 text-xs text-[#3A3C40] dark:text-slate-300">
                       <strong className="text-[#7A5CF0]">Key Takeaway: </strong>
                       {milestone.keyTakeaway}
                     </div>
@@ -250,7 +275,7 @@ export default function Roadmaps({ completedMilestones, onToggleMilestone, showT
                           className="inline-flex items-center gap-1.5 text-xs font-[600] text-[#7A5CF0] hover:underline"
                         >
                           <BookOpen className="w-3.5 h-3.5" />
-                          <span>Recommended: {milestone.resourceTitle}</span>
+                          <span>Recommended Study: {milestone.resourceTitle}</span>
                           <ExternalLink className="w-3 h-3" />
                         </a>
                       </div>
@@ -260,6 +285,34 @@ export default function Roadmaps({ completedMilestones, onToggleMilestone, showT
               </div>
             );
           })}
+        </div>
+
+        {/* Achievement Badges Section */}
+        <div className="pt-6 border-t border-black/[0.06] dark:border-white/[0.08]">
+          <h4 className="text-xs font-[600] uppercase tracking-wider text-[#5E6064] mb-3">
+            Unlocked Milestones & Badges
+          </h4>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {ACHIEVEMENT_BADGES.map((ach) => {
+              const isUnlocked = completedInTrack >= ach.threshold;
+              return (
+                <div
+                  key={ach.id}
+                  className={`p-3.5 rounded-[12px] border flex items-center gap-3 transition-all ${
+                    isUnlocked
+                      ? `${ach.color} shadow-2xs`
+                      : 'bg-[#F9F9FB] dark:bg-slate-800/40 border-black/[0.06] opacity-50 grayscale'
+                  }`}
+                >
+                  <Award className="w-5 h-5 shrink-0" />
+                  <div>
+                    <h5 className="text-xs font-[600]">{ach.title}</h5>
+                    <p className="text-[10px] opacity-80">{ach.description}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>

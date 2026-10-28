@@ -5,7 +5,7 @@ export const ROADMAP_TRACKS = [
     description: "From component mastery to high-throughput distributed micro-frontends and cloud deployments.",
     icon: "Compass",
     badgeLabel: "Full-Stack Architect",
-    color: "from-purple-600 to-indigo-600",
+    color: "from-[#7A5CF0] to-[#6A4CEB]",
     milestones: [
       {
         id: "fs-1",
@@ -70,7 +70,7 @@ export const ROADMAP_TRACKS = [
     description: "From transformer fundamentals to fine-tuning, retrieval-augmented generation (RAG), and production LLM guardrails.",
     icon: "Award",
     badgeLabel: "AI Systems Pioneer",
-    color: "from-rose-500 to-purple-600",
+    color: "from-[#F8533F] to-[#FA6E5C]",
     milestones: [
       {
         id: "ai-1",
@@ -99,177 +99,256 @@ export const ROADMAP_TRACKS = [
         title: "Parameter-Efficient Fine-Tuning (LoRA / QLoRA)",
         category: "Model Optimization",
         difficulty: "Advanced",
-        estimatedHours: "30 hrs",
-        summary: "Fine-tune open weights (Llama-3, Mistral) on domain-specific datasets using 4-bit quantization and PEFT adapters.",
-        resourceTitle: "Hugging Face PEFT Library Tutorials",
+        estimatedHours: "22 hrs",
+        summary: "Fine-tune open-weights models (Llama 3 / Mistral) using low-rank adapters and 4-bit quantization on consumer GPUs.",
+        resourceTitle: "Hugging Face PEFT Library Documentation",
         resourceUrl: "https://huggingface.co/docs/peft",
-        keyTakeaway: "Deliver enterprise-grade domain accuracy at 1/100th the compute budget of full fine-tuning."
+        keyTakeaway: "LoRA adapts models with <1% trainable parameters while preserving base general capabilities."
       },
       {
         id: "ai-4",
-        title: "AI Safety, Hallucination Audits & Adversarial Red-Teaming",
-        category: "Safety & Ethics",
+        title: "Safety Guardrails, Red Teaming & Bias Auditing",
+        category: "Ethics & Safety",
         difficulty: "Advanced",
-        estimatedHours: "18 hrs",
-        summary: "Build automated safety evaluation harnesses to test for prompt injection, jailbreaks, demographic bias, and data leakage.",
-        resourceTitle: "NIST AI Risk Management Framework",
-        resourceUrl: "https://www.nist.gov/itl/ai-risk-management-framework",
-        keyTakeaway: "Safety verification is a core technical discipline that protects users from systemic harm."
+        estimatedHours: "16 hrs",
+        summary: "Design LLM guardrail interceptors, semantic toxic classifiers, prompt injection defenses, and demographic parity tests.",
+        resourceTitle: "NVIDIA NeMo Guardrails & OWASP LLM Top 10",
+        resourceUrl: "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+        keyTakeaway: "Women technologists must lead safety evaluations to prevent reinforcing historical bias."
       },
       {
         id: "ai-5",
-        title: "Production LLMOps & GPU Cluster Serving (vLLM / Triton)",
+        title: "Distributed GPU Inference Serving (vLLM & TensorRT-LLM)",
         category: "Staff Level",
         difficulty: "Staff Level",
         estimatedHours: "28 hrs",
-        summary: "Deploy high-throughput inference engines utilizing continuous batching, PagedAttention, and automated multi-GPU autoscaling.",
+        summary: "Optimize batch throughput with PagedAttention, continuous batching, speculative decoding, and model parallelism.",
         resourceTitle: "vLLM High-Throughput Serving Engine",
-        resourceUrl: "https://docs.vllm.ai",
-        keyTakeaway: "Mastering throughput vs latency trade-offs is what differentiates senior AI engineers."
+        resourceUrl: "https://vllm.ai",
+        keyTakeaway: "Continuous batching improves GPU compute utilization from 15% to over 70% in high concurrency."
       }
     ]
   },
   {
-    id: "opensource-ghc",
-    title: "Open Source Contributing & GHC Leadership",
-    description: "Building a global public technical footprint, speaking at top conferences, and mentoring the next generation.",
+    id: "cloud-devops",
+    title: "Cloud Native, DevOps & High-Availability SRE",
+    description: "Designing self-healing, multi-region distributed cloud infrastructure with zero downtime.",
     icon: "Shield",
-    badgeLabel: "Grace Hopper Luminary",
-    color: "from-emerald-500 to-teal-600",
+    badgeLabel: "SRE Champion",
+    color: "from-indigo-600 to-blue-700",
+    milestones: [
+      {
+        id: "cd-1",
+        title: "Containerization & Declarative Kubernetes Orchestration",
+        category: "Infrastructure",
+        difficulty: "Intermediate",
+        estimatedHours: "20 hrs",
+        summary: "Build multi-stage Docker images, write production Kubernetes manifests, configure Ingress controllers, and manage ConfigMaps.",
+        resourceTitle: "Kubernetes The Hard Way",
+        resourceUrl: "https://github.com/kelseyhightower/kubernetes-the-hard-way",
+        keyTakeaway: "Treat infrastructure manifests as immutable declarative code tested via GitOps."
+      },
+      {
+        id: "cd-2",
+        title: "Infrastructure as Code (Terraform & OpenTofu)",
+        category: "Cloud Ops",
+        difficulty: "Intermediate",
+        estimatedHours: "16 hrs",
+        summary: "Structure modular Terraform configurations with state locking in DynamoDB/S3 and automated drift detection pipelines.",
+        resourceTitle: "Terraform Best Practices by Anton Babenko",
+        resourceUrl: "https://www.terraform-best-practices.com/",
+        keyTakeaway: "Module composition and remote state isolation prevent catastrophic blast radiuses."
+      },
+      {
+        id: "cd-3",
+        title: "Zero-Trust Service Mesh & Mutual TLS (mTLS)",
+        category: "Security",
+        difficulty: "Advanced",
+        estimatedHours: "18 hrs",
+        summary: "Implement Istio or Linkerd service meshes for transparent cryptographic workload authentication and traffic splitting.",
+        resourceTitle: "Istio Service Mesh Architecture",
+        resourceUrl: "https://istio.io/latest/docs/",
+        keyTakeaway: "Never trust internal VPC network perimeters; enforce end-to-end identity at the application layer."
+      },
+      {
+        id: "cd-4",
+        title: "Chaos Engineering & Automated Disaster Recovery",
+        category: "Reliability",
+        difficulty: "Advanced",
+        estimatedHours: "22 hrs",
+        summary: "Simulate random node terminates and network partition splits using Chaos Mesh to validate SLA self-healing targets.",
+        resourceTitle: "Principles of Chaos Engineering",
+        resourceUrl: "https://principlesofchaos.org/",
+        keyTakeaway: "If you don't intentionally inject failure during business hours, production will inject it at 3 AM."
+      },
+      {
+        id: "cd-5",
+        title: "Multi-Region Active-Active Database Replication",
+        category: "Staff Level",
+        difficulty: "Staff Level",
+        estimatedHours: "30 hrs",
+        summary: "Architect global transactional consensus using CockroachDB, Google Spanner, or DynamoDB Global Tables.",
+        resourceTitle: "Designing Data-Intensive Applications by Martin Kleppmann",
+        resourceUrl: "https://dataintensive.net/",
+        keyTakeaway: "The CAP theorem cannot be cheated; choose your consistency tradeoffs deliberately based on business domain."
+      }
+    ]
+  },
+  {
+    id: "staff-leadership",
+    title: "Engineering Leadership & Staff+ Influence",
+    description: "Strategies for technical sponsorship, cross-team consensus, executive presence, and promotion calibrations.",
+    icon: "Award",
+    badgeLabel: "Staff+ Executive Leader",
+    color: "from-amber-600 to-rose-600",
+    milestones: [
+      {
+        id: "sl-1",
+        title: "The Staff Engineer Archetypes & Career Alignment",
+        category: "Career Strategy",
+        difficulty: "Intermediate",
+        estimatedHours: "10 hrs",
+        summary: "Identify whether your impact matches Tech Lead, Architect, Solver, or Right Hand archetypes; align expectations with your VP.",
+        resourceTitle: "Staff Engineer: Leadership Beyond the Management Track by Will Larson",
+        resourceUrl: "https://staffeng.com/",
+        keyTakeaway: "Staff+ is not just Senior++—it requires driving organizational alignment and setting technical direction."
+      },
+      {
+        id: "sl-2",
+        title: "Architectural RFCs & Asynchronous Consensus Building",
+        category: "Technical Strategy",
+        difficulty: "Advanced",
+        estimatedHours: "14 hrs",
+        summary: "Author high-stakes RFCs (Request for Comments). Master pre-wiring consensus before public review meetings.",
+        resourceTitle: "Pragmatic Engineer RFC Guide",
+        resourceUrl: "https://blog.pragmaticengineer.com/",
+        keyTakeaway: "Controversial decisions are never decided in the review meeting; they are calibrated in 1:1 conversations beforehand."
+      },
+      {
+        id: "sl-3",
+        title: "Building an Irrefutable Staff+ Promotion Dossier",
+        category: "Promotion",
+        difficulty: "Advanced",
+        estimatedHours: "16 hrs",
+        summary: "Compile multi-million dollar business impact records, peer sponsor testimonials, and cross-organizational references.",
+        resourceTitle: "The Performance Calibration Playbook",
+        resourceUrl: "https://github.com",
+        keyTakeaway: "Do not leave your promotion to chance. Give your sponsor the exact bullet points they need in the room."
+      },
+      {
+        id: "sl-4",
+        title: "Actively Sponsoring & Multiplying Junior & Mid Women",
+        category: "Sponsorship",
+        difficulty: "Leadership",
+        estimatedHours: "18 hrs",
+        summary: "Formalize intentional sponsorship: mention protégés in leadership forums, pass high-visibility projects, and audit review notes.",
+        resourceTitle: "Catalyst California Sponsor Action Matrix",
+        resourceUrl: "https://catalyst.org",
+        keyTakeaway: "True executive leadership is measured by how many chairs you pull up to the table behind you."
+      },
+      {
+        id: "sl-5",
+        title: "Board & C-Suite Technical Communication",
+        category: "Executive",
+        difficulty: "Staff Level",
+        estimatedHours: "20 hrs",
+        summary: "Translate technical architectural debt into balance-sheet risk, regulatory liability, and revenue opportunity for executives.",
+        resourceTitle: "Communicating with Executives as an Engineer",
+        resourceUrl: "https://hbr.org",
+        keyTakeaway: "Executives do not care about Kubernetes clusters; they care about latency risk, headcount efficiency, and uptime SLA."
+      }
+    ]
+  },
+  {
+    id: "open-source",
+    title: "Open Source Contribution & Technical Advocacy",
+    description: "Becoming a recognized open-source maintainer, keynote speaker, and industry standard author.",
+    icon: "Compass",
+    badgeLabel: "Open Source Champion",
+    color: "from-violet-600 to-fuchsia-600",
     milestones: [
       {
         id: "os-1",
-        title: "First Tier-1 Open Source PR & Code Review",
-        category: "Public Impact",
+        title: "Navigating Upstream RFCs & First Foundation Pull Request",
+        category: "Community",
         difficulty: "Beginner",
-        estimatedHours: "10 hrs",
-        summary: "Identify a 'good first issue' in top ecosystem repositories (React, Vite, Node, Python), submit RFC-compliant PR, and navigate review.",
-        resourceTitle: "First Timers Only & Open Source Guide",
-        resourceUrl: "https://opensource.guide",
-        keyTakeaway: "Open source PRs serve as permanent, publicly auditable proof of code quality and collaboration."
+        estimatedHours: "12 hrs",
+        summary: "Clone major repositories (React, Node, Kubernetes), participate in community SIG meetings, and land your first upstream bug fix.",
+        resourceTitle: "First Timers Only & CNCF Contributor Guide",
+        resourceUrl: "https://www.firsttimersonly.com/",
+        keyTakeaway: "Open-source credibility begins with humble documentation fixes, test coverage, and reproducible bug reports."
       },
       {
         id: "os-2",
-        title: "Submitting a GHC (Grace Hopper Celebration) Technical Talk",
-        category: "Conference Leadership",
+        title: "CI/CD Automation, Semantic Releases & Vulnerability Triage",
+        category: "Maintainership",
         difficulty: "Intermediate",
         estimatedHours: "15 hrs",
-        summary: "Craft a compelling Call-for-Presentations (CFP) abstract focusing on novel architecture wins, avoiding generic topics.",
-        resourceTitle: "AnitaB.org GHC Speaker Resource Kit",
-        resourceUrl: "https://ghc.anitab.org",
-        keyTakeaway: "Conference speaking positions you as an industry authority and unlocks executive sponsorship."
+        summary: "Configure GitHub Actions workflows with automated SBOM generation, Dependabot security alerts, and semantic versioning.",
+        resourceTitle: "Open Source Security Foundation (OpenSSF) Best Practices",
+        resourceUrl: "https://bestpractices.coreinfrastructure.org/",
+        keyTakeaway: "A well-maintained library has automated security scans and crystal clear release notes."
       },
       {
         id: "os-3",
-        title: "Founding or Leading an Employee Resource Group (ERG)",
-        category: "Organizational Equity",
-        difficulty: "Advanced",
-        estimatedHours: "20 hrs",
-        summary: "Structure a charter, secure executive budget, and institute mentorship cohorts for women engineers within your enterprise.",
-        resourceTitle: "Catalyst Workplace ERG Playbook",
-        resourceUrl: "https://www.catalyst.org",
-        keyTakeaway: "Convert grassroots community passion into measurable retention metrics and executive recognition."
+        title: "Technical Writing, Architecture Blog Posts & Deep Dives",
+        category: "Advocacy",
+        difficulty: "Intermediate",
+        estimatedHours: "14 hrs",
+        summary: "Write compelling technical breakdowns that reach the top of Hacker News, Lobste.rs, and engineering team newsletters.",
+        resourceTitle: "Google Developer Technical Writing Course",
+        resourceUrl: "https://developers.google.com/tech-writing",
+        keyTakeaway: "Writing in public attracts incoming opportunities, job offers, and conference invitations without cold applying."
       },
       {
         id: "os-4",
-        title: "Authoring a Technical RFC / Whitepaper with Sponsorship",
-        category: "Executive Impact",
-        difficulty: "Staff Level",
-        estimatedHours: "25 hrs",
-        summary: "Author a company-wide or industry technical RFC with backing from cross-functional Principal Engineers and Directors.",
-        resourceTitle: "How to Write a Great RFC",
-        resourceUrl: "https://github.com/ietf",
-        keyTakeaway: "Writing is leverage. An RFC that unifies 10 teams generates 100x individual code output."
-      }
-    ]
-  },
-  {
-    id: "staff-plus",
-    title: "Staff+ Technical Track & Executive Presence",
-    description: "Transitioning from individual contributor excellence to cross-organizational technical strategy and executive advocacy.",
-    icon: "User",
-    badgeLabel: "Staff+ Engineering Leader",
-    color: "from-amber-500 to-rose-600",
-    milestones: [
-      {
-        id: "st-1",
-        title: "Creating Your 360 Promotion Dossier & Impact Artifacts",
-        category: "Career Strategy",
-        difficulty: "Intermediate",
-        estimatedHours: "12 hrs",
-        summary: "Structure quantitative impact documents demonstrating revenue unlocked, latency saved, and talent cultivated.",
-        resourceTitle: "Staff Engineer Book by Will Larson",
-        resourceUrl: "https://staffeng.com",
-        keyTakeaway: "If it is not written down and sponsored, it did not happen during calibration committee."
-      },
-      {
-        id: "st-2",
-        title: "Building an Executive Sponsorship Circle",
-        category: "Sponsorship",
+        title: "Crafting Winning Conference CFPs (Grace Hopper & Strange Loop)",
+        category: "Public Speaking",
         difficulty: "Advanced",
-        estimatedHours: "16 hrs",
-        summary: "Identify 2-3 VP/Director-level leaders outside your direct reporting line to champion your promotion in closed-door sessions.",
-        resourceTitle: "GraceNet Executive Sponsorship Blueprint",
-        resourceUrl: "#sponsors",
-        keyTakeaway: "Mentorship provides advice; sponsorship provides power and advocacy."
+        estimatedHours: "18 hrs",
+        summary: "Formulate catchy titles, structured abstract outlines, and demo rehearsals that secure main-stage keynote slots.",
+        resourceTitle: "Speaking at Tech Conferences: The Complete Speaker Guide",
+        resourceUrl: "https://ghc.anitab.org",
+        keyTakeaway: "Conference selection committees look for novel learnings and actionable takeaways, not product pitches."
       },
       {
-        id: "st-3",
-        title: "Technical Strategy: Multi-Year Architecture Vision",
-        category: "Strategy",
+        id: "os-5",
+        title: "Foundation Governance & Becoming an Official Project Maintainer",
+        category: "Governance",
         difficulty: "Staff Level",
-        estimatedHours: "30 hrs",
-        summary: "Formulate a 3-year technology roadmap balancing technical debt retirement with high-growth business priorities.",
-        resourceTitle: "Martin Fowler Architecture Patterns",
-        resourceUrl: "https://martinfowler.com",
-        keyTakeaway: "True technical strategy simplifies complexity so 50 engineers can move in sync."
-      },
-      {
-        id: "st-4",
-        title: "Mastering Closed-Door Calibration & Salary Parity Defense",
-        category: "Equity Mastery",
-        difficulty: "Executive",
-        estimatedHours: "14 hrs",
-        summary: "Defend compensation equity bands and advocate for junior women during internal performance calibrations.",
-        resourceTitle: "Tech Equity Collaborative Calibration Guides",
-        resourceUrl: "https://techequitycollaborative.org",
-        keyTakeaway: "Hold the door open and ensure objective scoring metrics triumph over unconscious affinity bias."
+        estimatedHours: "24 hrs",
+        summary: "Step up into CNCF, Apache, or Linux Foundation governance boards. Shape standard specifications that impact the entire industry.",
+        resourceTitle: "Linux Foundation Governance Guide",
+        resourceUrl: "https://www.linuxfoundation.org/",
+        keyTakeaway: "When women participate in technical standards bodies, the architecture of the internet reflects all of us."
       }
     ]
   }
 ];
 
-export const ACHIEVEMENT_BADGES = [
+export const ACHIEVEMENTS = [
   {
-    id: "first_milestone",
-    name: "First Step Forward",
-    description: "Completed your first career milestone",
-    icon: "CheckCircle",
-    requiredCount: 1,
-    color: "text-emerald-500 bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800"
+    id: "ach-1",
+    title: "First Step Taken",
+    description: "Completed your first career roadmap milestone.",
+    threshold: 1,
+    color: "text-[#7A5CF0] bg-[#F1EDFE] border-[#E8E2FD]"
   },
   {
-    id: "quarter_master",
-    name: "Momentum Builder",
-    description: "Completed 25% of your skill roadmap",
-    icon: "Award",
-    requiredPct: 25,
-    color: "text-purple-600 bg-purple-50 dark:bg-purple-950/40 border-purple-200 dark:border-purple-800"
+    id: "ach-2",
+    title: "Halfway Hero",
+    description: "Completed 50% or more of your active track.",
+    threshold: 3,
+    color: "text-[#F8533F] bg-[#FFF0EE] border-[#FEDCD8]"
   },
   {
-    id: "halfway_hero",
-    name: "Grace Hopper Visionary",
-    description: "Reached 50% technical mastery",
-    icon: "Compass",
-    requiredPct: 50,
-    color: "text-rose-500 bg-rose-50 dark:bg-rose-950/40 border-rose-200 dark:border-rose-800"
-  },
-  {
-    id: "staff_architect",
-    name: "Staff+ Luminary",
-    description: "Reached 75%+ across tracks",
-    icon: "Shield",
-    requiredPct: 75,
-    color: "text-amber-500 bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800"
+    id: "ach-3",
+    title: "Mastery Unlocked",
+    description: "Achieved 100% completion in a specialized track.",
+    threshold: 5,
+    color: "text-[#6A4CEB] bg-[#F1EDFE] border-[#E8E2FD]"
   }
 ];
+
+export const ACHIEVEMENT_BADGES = ACHIEVEMENTS;
+

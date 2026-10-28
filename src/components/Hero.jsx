@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import Logo from './Logo';
+import { Award, ArrowRight, Sparkles, Building, CheckCircle2 } from 'lucide-react';
 
 export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin }) {
-  const videoRef = useRef(null);
   const heartbeatSvgRef = useRef(null);
 
   // Exact Corvana Pixel ECG Heartbeat Trace:
@@ -96,28 +96,11 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
     svg.innerHTML = rects.join('');
   }, []);
 
-  // Video loop fade-in on playing
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const handlePlaying = () => {
-      video.classList.add('is-active');
-    };
-
-    video.addEventListener('playing', handlePlaying);
-    video.play().catch(() => {});
-
-    return () => {
-      video.removeEventListener('playing', handlePlaying);
-    };
-  }, []);
-
   return (
-    <section className="relative w-full overflow-hidden flex flex-col items-center bg-[#FEFEFE] dark:bg-slate-950 font-sans">
+    <section className="relative w-full overflow-hidden flex flex-col items-center bg-[#FEFEFE] dark:bg-slate-950 font-sans transition-colors duration-200">
       {/* 1. ANNOUNCEMENT BAR: exact 38px, coral #FA6E5C, 13.5px font, underlined link */}
       <div className="w-full h-[38px] bg-[#FA6E5C] flex items-center justify-center text-white text-[13.5px] font-[500] tracking-[-0.01em] px-4 z-20 shrink-0">
-        <div className="inline-flex items-center gap-1.5">
+        <div className="inline-flex items-center gap-1.5 flex-wrap justify-center text-center">
           <span>Catalyst California Conference (C3) Hackathon • Advancing Women in Tech.</span>
           <button 
             onClick={onOpenJoin}
@@ -128,29 +111,28 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
         </div>
       </div>
 
-      {/* 2. HEADLINE & SUBLINE SECTION */}
-      <div className="w-full max-w-[1514px] mx-auto px-4 sm:px-6 pt-9 sm:pt-12 text-center flex flex-col items-center z-10">
-        {/* Headline: about 72u, 500 weight with tight tracking (-0.045em) */}
+      {/* 2. HEADLINE & SUBLINE SECTION (Reduced font size to refined elegance) */}
+      <div className="w-full max-w-[1514px] mx-auto px-4 sm:px-6 pt-8 sm:pt-11 text-center flex flex-col items-center z-10">
         <div className="overflow-hidden">
-          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[72px] font-[500] tracking-[-0.045em] text-[#000000] dark:text-white leading-[1.08]">
+          <h1 className="text-2xl sm:text-4xl md:text-[46px] lg:text-[54px] font-[500] tracking-[-0.035em] text-[#000000] dark:text-white leading-[1.12]">
             The Career Copilot Made For
           </h1>
         </div>
         <div className="overflow-hidden">
-          <div className="text-3xl sm:text-5xl md:text-6xl lg:text-[72px] font-[500] tracking-[-0.045em] text-[#000000] dark:text-white leading-[1.08]">
+          <div className="text-2xl sm:text-4xl md:text-[46px] lg:text-[54px] font-[500] tracking-[-0.035em] text-[#000000] dark:text-white leading-[1.12]">
             Women In Technology
           </div>
         </div>
 
-        {/* Subline: about 22.4u / 31u, two lines, color #5E6064 */}
-        <div className="mt-4 sm:mt-5 max-w-[880px]">
-          <p className="text-sm sm:text-lg md:text-[22.4px] leading-relaxed md:leading-[31px] text-[#5E6064] dark:text-slate-300 font-[400] tracking-[-0.015em]">
+        {/* Subline: balanced, comfortable reading size */}
+        <div className="mt-3.5 sm:mt-4 max-w-[760px]">
+          <p className="text-sm sm:text-base md:text-[17.5px] leading-relaxed md:leading-[27px] text-[#5E6064] dark:text-slate-300 font-[400] tracking-[-0.015em]">
             From salary parity audits to executive sponsorship doors, take control of your career trajectory while cultivating allies who advocate for you in closed-door calibration rooms.
           </p>
         </div>
 
         {/* 3. HEARTBEAT FIELD & MAIN BUTTON */}
-        <div className="relative w-full h-[90px] flex items-center justify-center my-4 sm:my-6">
+        <div className="relative w-full h-[90px] flex items-center justify-center my-3 sm:my-5">
           {/* Edge-to-edge pixel ECG trace: 6.2u squares on 9.6u grid, coral #F8533F with lighter #FB7565 dots */}
           <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
             <svg 
@@ -161,11 +143,11 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
             />
           </div>
 
-          {/* 233 x 71.5u Glass Ring around Black Pill Button: 22u text */}
+          {/* 233 x 71.5u Glass Ring around Black Pill Button: 20px text */}
           <div className="relative z-10 w-[233px] sm:w-[245px] h-[71.5px] rounded-full bg-white/75 dark:bg-slate-900/80 backdrop-blur-[14px] border border-white/90 dark:border-slate-700 shadow-[0_10px_32px_rgba(0,0,0,0.06),0_2px_8px_rgba(0,0,0,0.03)] flex items-center justify-center p-1.5 transition-transform hover:scale-[1.01] group cursor-pointer">
             <button
               onClick={onExploreSponsors}
-              className="w-full h-full rounded-full bg-[#000000] hover:bg-slate-900 text-white font-[500] text-lg sm:text-[22px] tracking-[-0.02em] flex items-center justify-center gap-2 shadow-[0_4px_14px_rgba(0,0,0,0.12)] transition-all group-hover:-translate-y-[1px] group-hover:shadow-[0_10px_24px_rgba(0,0,0,0.22)] active:translate-y-0"
+              className="w-full h-full rounded-full bg-[#000000] hover:bg-neutral-800 text-white font-[500] text-base sm:text-[19px] tracking-[-0.02em] flex items-center justify-center gap-2 shadow-[0_4px_14px_rgba(0,0,0,0.12)] transition-all group-hover:-translate-y-[1px] group-hover:shadow-[0_10px_24px_rgba(0,0,0,0.22)] active:translate-y-0 border-none cursor-pointer"
             >
               <span>Match With A Sponsor</span>
             </button>
@@ -176,41 +158,75 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
         <div className="w-full max-w-[1313.5px] mx-auto mb-8 sm:mb-12">
           <div className="w-full min-h-[420px] sm:h-[429.5px] rounded-[16px] grid grid-cols-1 md:grid-cols-12 gap-[7.5px] p-0.5">
             
-            {/* PANEL 1: EXECUTIVE SPONSOR PANEL (436.5u / 4 cols) */}
-            <div className="md:col-span-4 h-full min-h-[380px] rounded-[16px] overflow-hidden relative shadow-sm bg-gradient-to-br from-[#a4e6ce] to-[#bde8f5]">
-              {/* Still image fallback */}
-              <img
-                src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/c43c6772-ae79-45f3-a2ff-90a401f03b48.webp"
-                alt="Executive Sponsor Dr. Maya Lin-Vanderbilt"
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-
-              {/* Looping video: 107.78% width, left -3.89%, full height */}
-              <video
-                ref={videoRef}
-                src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/39c69b84-0ac5-485f-ae42-3bd7d521989e.mp4"
-                className="absolute top-0 -left-[3.89%] w-[107.78%] h-full object-cover opacity-0 transition-opacity duration-700 pointer-events-none [&.is-active]:opacity-100"
-                autoPlay
-                loop
-                muted
-                playsInline
-              />
-
-              {/* Verified Pill Header with GraceNet Logo */}
-              <div className="absolute top-[18px] left-[18px] z-10 bg-white/75 dark:bg-slate-900/80 backdrop-blur-[12px] border border-white/90 dark:border-slate-700 rounded-full px-3 py-1.5 flex items-center gap-1.5 shadow-[0_4px_12px_rgba(0,0,0,0.05)] text-[11.5px] font-[500] text-[#3A3C40] dark:text-white">
-                <Logo size={14} />
-                <span>Executive Sponsor • Google Cloud</span>
+            {/* PANEL 1: EXECUTIVE SPONSOR PANEL (Warm porcelain & lavender studio aesthetic - NO GREEN) */}
+            <div className="md:col-span-4 h-full min-h-[380px] rounded-[16px] overflow-hidden relative shadow-sm bg-gradient-to-br from-[#FAF9F6] via-[#F4F1FD] to-[#EDE9FE] dark:from-slate-900 dark:via-slate-900 dark:to-purple-950/40 border border-black/[0.06] dark:border-white/10 p-6 flex flex-col justify-between">
+              
+              {/* Header Badges */}
+              <div className="flex items-center justify-between gap-2">
+                <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border border-white/90 dark:border-slate-700 rounded-full px-3 py-1.5 flex items-center gap-1.5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] text-[11px] font-[600] text-[#3A3C40] dark:text-white">
+                  <Logo size={14} />
+                  <span>Executive Sponsor</span>
+                </div>
+                <div className="flex items-center gap-1 text-[11px] font-[500] text-[#7A5CF0] bg-white/70 dark:bg-slate-800/60 px-2.5 py-1 rounded-full border border-purple-100 dark:border-purple-900/40">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#7A5CF0] animate-pulse"></span>
+                  <span>2 Open Slots</span>
+                </div>
               </div>
 
-              {/* Bottom Glass Overlay */}
-              <div className="absolute bottom-4 left-4 right-4 z-10 bg-white/85 dark:bg-slate-900/85 backdrop-blur-[12px] border border-white/90 dark:border-slate-700 rounded-[14px] p-3 flex items-center justify-between shadow-md">
-                <div>
-                  <div className="text-xs font-[600] text-[#000000] dark:text-white">Dr. Maya Lin-Vanderbilt</div>
-                  <div className="text-[11px] text-[#5E6064]">VP of Engineering & Distributed Systems</div>
+              {/* Sponsor Profile Spotlight */}
+              <div className="my-auto py-2 text-center flex flex-col items-center">
+                <div className="relative mb-3">
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden p-1 bg-gradient-to-tr from-[#7A5CF0] via-[#F8533F] to-[#FA6E5C] shadow-md">
+                    <img
+                      src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&auto=format&fit=crop&q=80"
+                      alt="Dr. Maya Lin-Vanderbilt"
+                      className="w-full h-full rounded-full object-cover"
+                    />
+                  </div>
+                  <div className="absolute -bottom-1 -right-1 bg-white dark:bg-slate-900 rounded-full p-1 shadow-sm">
+                    <CheckCircle2 className="w-4 h-4 text-[#7A5CF0]" />
+                  </div>
                 </div>
-                <span className="text-[10px] font-[600] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
-                  14 Promoted
-                </span>
+
+                <h3 className="text-lg sm:text-xl font-[600] text-[#000000] dark:text-white tracking-[-0.02em]">
+                  Dr. Maya Lin-Vanderbilt
+                </h3>
+                <p className="text-xs sm:text-[13px] font-[500] text-[#5E6064] dark:text-slate-300 mt-0.5">
+                  VP of Engineering • Google Cloud
+                </p>
+
+                {/* Key Tags */}
+                <div className="flex flex-wrap items-center justify-center gap-1.5 mt-3">
+                  <span className="text-[10.5px] font-[500] px-2.5 py-0.5 rounded-full bg-white dark:bg-slate-800 text-[#3A3C40] dark:text-slate-200 shadow-2xs border border-black/[0.04] dark:border-white/[0.06]">
+                    Distributed Systems
+                  </span>
+                  <span className="text-[10.5px] font-[500] px-2.5 py-0.5 rounded-full bg-white dark:bg-slate-800 text-[#3A3C40] dark:text-slate-200 shadow-2xs border border-black/[0.04] dark:border-white/[0.06]">
+                    Staff+ Dossiers
+                  </span>
+                  <span className="text-[10.5px] font-[500] px-2.5 py-0.5 rounded-full bg-white dark:bg-slate-800 text-[#3A3C40] dark:text-slate-200 shadow-2xs border border-black/[0.04] dark:border-white/[0.06]">
+                    Parity Advocacy
+                  </span>
+                </div>
+              </div>
+
+              {/* Bottom Glass Action Bar */}
+              <div className="bg-white/85 dark:bg-slate-900/85 backdrop-blur-md border border-white/90 dark:border-slate-700 rounded-[14px] p-3 flex items-center justify-between shadow-xs">
+                <div className="flex items-center gap-2">
+                  <span className="text-[11px] font-[600] px-2.5 py-1 rounded-full bg-[#F1EDFE] text-[#6A4CEB] dark:bg-purple-950/60 dark:text-purple-300">
+                    14 Promoted
+                  </span>
+                  <span className="text-[11px] font-[600] px-2.5 py-1 rounded-full bg-[#FFF0EE] text-[#F8533F] dark:bg-rose-950/60 dark:text-rose-300">
+                    100% Equity
+                  </span>
+                </div>
+
+                <button
+                  onClick={onExploreSponsors}
+                  className="flex items-center gap-1 text-[12px] font-[600] text-[#000000] dark:text-white hover:text-[#7A5CF0] transition-colors cursor-pointer border-none bg-transparent"
+                >
+                  <span>Connect</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
               </div>
             </div>
 
@@ -240,12 +256,12 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
                     <span className="text-[26px] font-[500] text-[#000000] dark:text-white">K</span>
                   </div>
 
-                  {/* Lavender Chip: +21.3% (#F1EDFE -> #E8E2FD, text #6A4CEB) + vs Market Median */}
+                  {/* Lavender Chip: +21.3% (#F1EDFE -> #E8E2FD, text #6A4CEB) + vs Past Review */}
                   <div className="flex items-center gap-2 mt-2.5">
                     <span className="text-[12px] font-[600] px-2 py-0.5 rounded-full bg-gradient-to-r from-[#F1EDFE] to-[#E8E2FD] text-[#6A4CEB] tracking-[-0.01em]">
                       +21.3%
                     </span>
-                    <span className="text-[12.5px] font-[400] text-[#5E6064]">vs Past Review</span>
+                    <span className="text-[12.5px] font-[400] text-[#5E6064] dark:text-slate-400">vs Past Review</span>
                   </div>
                 </div>
 
@@ -297,7 +313,7 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
               className="md:col-span-4 h-full min-h-[380px] rounded-[16px] p-5 flex flex-col items-center justify-center gap-3 relative overflow-hidden shadow-sm bg-cover bg-center"
               style={{ backgroundImage: `url('https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/b6730025-6d74-465e-8978-f9909c47095a.webp')` }}
             >
-              {/* Frosted Trust Card: 292 x 241u, 98% (44.5u, 400), violet bar-wave meter, "Wonderful" */}
+              {/* Frosted Trust Card: 292 x 241u, 98% (44.5u, 400), violet bar-wave meter */}
               <div className="w-full max-w-[292px] h-[241px] bg-white/76 dark:bg-slate-900/80 backdrop-blur-[18px] border border-white/88 dark:border-slate-700 rounded-[16px] p-5 flex flex-col justify-between shadow-[0_16px_36px_rgba(0,0,0,0.08)]">
                 <div className="flex items-center justify-between">
                   <span className="text-[13px] font-[500] text-[#3A3C40] dark:text-slate-300">
@@ -357,7 +373,7 @@ export default function Hero({ onExploreSponsors, onExplorePayEquity, onOpenJoin
 
                 <div className="text-right flex flex-col items-end">
                   <div className="text-[16.5px] font-[600] text-[#000000] dark:text-white tracking-[-0.02em] leading-tight">142+</div>
-                  <div className="text-[11px] font-[400] text-[#5E6064]">Women Promoted in Tech</div>
+                  <div className="text-[11px] font-[400] text-[#5E6064] dark:text-slate-400">Women Promoted in Tech</div>
                 </div>
               </div>
 

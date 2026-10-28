@@ -208,7 +208,7 @@ export default function Community({ posts, onAddPost, onToggleLike, onAddReply, 
                         {post.author.name}
                       </span>
                       {post.author.isAnonymous ? (
-                        <span className="text-[10px] font-[600] px-2 py-0.2 rounded-full bg-emerald-100 text-emerald-800">
+                        <span className="text-[10px] font-[600] px-2 py-0.5 rounded-full bg-[#F1EDFE] text-[#6A4CEB] dark:bg-purple-950 dark:text-purple-300 border border-[#E8E2FD] dark:border-purple-800/40">
                           Shield Protected
                         </span>
                       ) : (

@@ -15,14 +15,14 @@ export default function Toast({ toasts, onDismiss }) {
             key={toast.id}
             className={`pointer-events-auto flex items-start gap-3 p-4 rounded-2xl shadow-xl border backdrop-blur-md transition-all duration-300 transform translate-y-0 opacity-100 ${
               isSuccess
-                ? 'bg-emerald-50/95 dark:bg-emerald-950/90 border-emerald-300 dark:border-emerald-700 text-emerald-900 dark:text-emerald-100'
+                ? 'bg-[#F1EDFE]/95 dark:bg-purple-950/90 border-[#7A5CF0]/40 text-[#6A4CEB] dark:text-[#E8E2FD]'
                 : isError
                 ? 'bg-rose-50/95 dark:bg-rose-950/90 border-rose-300 dark:border-rose-700 text-rose-900 dark:text-rose-100'
                 : 'bg-white/95 dark:bg-slate-800/95 border-purple-200 dark:border-purple-800 text-slate-900 dark:text-white'
             }`}
           >
             <div className="mt-0.5 shrink-0">
-              {isSuccess && <CheckCircle className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />}
+              {isSuccess && <CheckCircle className="w-5 h-5 text-[#7A5CF0]" />}
               {isError && <AlertCircle className="w-5 h-5 text-rose-600 dark:text-rose-400" />}
               {!isSuccess && !isError && <Info className="w-5 h-5 text-deepViolet dark:text-purple-400" />}
             </div>

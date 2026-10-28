@@ -208,7 +208,7 @@ export default function Sponsorship({ requestsSent, onSendRequest, showToast, us
                           <span className="text-[11px] font-[600] px-2.5 py-0.5 rounded-full bg-gradient-to-r from-[#F1EDFE] to-[#E8E2FD] text-[#6A4CEB]">
                             {sponsor.category}
                           </span>
-                          <span className="text-[10px] font-[500] text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800">
+                          <span className="text-[10px] font-[500] text-[#6A4CEB] dark:text-[#E8E2FD] bg-[#F1EDFE] dark:bg-purple-950/60 px-2 py-0.5 rounded-full border border-[#E8E2FD] dark:border-purple-800/40">
                             {sponsor.availability}
                           </span>
                         </div>
@@ -269,7 +269,7 @@ export default function Sponsorship({ requestsSent, onSendRequest, showToast, us
                       </div>
 
                       {hasRequested ? (
-                        <span className="flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-[600] bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                        <span className="flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-[600] bg-[#F1EDFE] dark:bg-purple-950/60 text-[#6A4CEB] dark:text-[#E8E2FD] border border-[#E8E2FD] dark:border-purple-800/40">
                           <CheckCircle className="w-3.5 h-3.5" />
                           <span>Request Sent</span>
                         </span>

@@ -118,7 +118,7 @@ export default function SafetyModal({ isOpen, onClose }) {
                           >
                             {copiedText === uniqueId ? (
                               <>
-                                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                                <CheckCircle2 className="w-3.5 h-3.5 text-[#7A5CF0]" />
                                 <span>Copied!</span>
                               </>
                             ) : (
